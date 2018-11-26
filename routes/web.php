@@ -11,6 +11,40 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'PostController@index')
+	->name('site.post.index');
+
+Route::group(['prefix' => 'post'], function() {
+	Route::get('/{id}', 'PostController@post')
+		->where('id', '[0-9]+')
+		->name('site.post.post');
+	Route::get('/add', 'PostController@add')
+		->name('site.post.add');
+	Route::post('/add', 'PostController@add')
+		->name('site.post.add');
+	Route::get('/edit/{id}', 'PostController@edit')
+		->where('id', '[0-9]+')
+		->name('site.post.edit');
+	Route::post('/edit/{id}', 'PostController@edit')
+	->where('id', '[0-9]+')
+	->name('site.post.edit');
+	Route::get('/delete/{id}', 'PostController@delete')
+		->where('id', '[0-9]+')
+		->name('site.post.delete');
+	Route::post('/delete/{id}', 'PostController@delete')
+		->where('id', '[0-9]+')
+		->name('site.post.delete');
+});
+
+Route::group(['prefix' => 'user'], function() {
+	Route::get('/sign-up', 'UserController@signUp')
+		->name('site.user.signUp');
+	Route::post('/sign-up', 'UserController@signUp')
+		->name('site.user.signUp');
+	Route::get('/sign-in', 'UserController@signIn')
+		->name('site.user.signIn');
+	Route::post('/sign-in', 'UserController@signIn')
+		->name('site.user.signIn');
+	Route::get('/sign-out', 'UserController@signOut')
+		->name('site.user.signOut');
 });
