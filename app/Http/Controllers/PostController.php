@@ -66,35 +66,35 @@ class PostController extends Controller
 	}
 
 	// TODO: delete this
-	// public function test(Request $request, CounterInterface $counter)
-	// {
-	// 	// TODO: перенести в шаблоны
-	// 	echo getRusDate(date("2018-10-06 17:42:17"));
-	// 	echo '<br><br>';
+	public function test(Request $request, CounterInterface $counter)
+	{
+		// TODO: перенести в шаблоны
+		echo getRusDate(date("2018-10-06 17:42:17"));
+		echo '<br><br>';
 
-	// 	// $counter = resolve('CounterSingleton');
-	// 	// echo $counter->getValue() . '<br>';
-	// 	// $counter->increment();
-	// 	// echo $counter->getValue(). '<br>';
+		// $counter = resolve('CounterSingleton');
+		// echo $counter->getValue() . '<br>';
+		// $counter->increment();
+		// echo $counter->getValue(). '<br>';
 
-	// 	// $counter2 = resolve('CounterSingleton');
-	// 	// echo $counter2->getValue() . '<br>';
+		// $counter2 = resolve('CounterSingleton');
+		// echo $counter2->getValue() . '<br>';
 
-	// 	// $counter3 = resolve('CounterBind');
-	// 	// echo $counter3->getValue() . '<br>';
-
-
-	// 	echo $counter->getValue() . '<br>';
-	// 	$counter->increment();
-	// 	echo $counter->getValue(). '<br>';
+		// $counter3 = resolve('CounterBind');
+		// echo $counter3->getValue() . '<br>';
 
 
-	// 	return view(
-	// 		'post.client.index',
-	// 		[
-	// 			'title' => $title ?? 'Laravel-blog',
-	// 			'posts' => $posts ?? []
-	// 		]
-	// 	);
-	// }
+		echo $counter->getValue() . '<br>';
+		$counter->increment();
+		echo $counter->getValue(). '<br>';
+
+
+		return view(
+			'post.client.index',
+			[
+				'title' => $title ?? 'Laravel-blog',
+				'posts' => $posts ?? []
+			]
+		);
+	}
 }

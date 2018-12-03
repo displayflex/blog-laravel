@@ -14,6 +14,9 @@
 Route::get('/', 'PostController@index')
 	->name('site.post.index');
 
+Route::get('/test', 'PostController@test')
+	->name('site.post.test'); // TODO: delete this
+
 Route::group(['prefix' => 'post'], function() {
 	Route::get('/{id}', 'PostController@post')
 		->where('id', '[0-9]+')

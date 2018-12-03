@@ -63,7 +63,8 @@
 										<!-- Article list -->
 											<section class="box">
 {{-- TODO: delete this --}}
-<p><i>Сейчас (HelperProvider):</i> {{ formatDate() }}</p>
+<p><i>Сейчас (HelpersServiceProvider):</i> {{ getRusDate(date('Y-m-d H:i:s')) }}</p>
+
 												@section('content')
 												@show
 
