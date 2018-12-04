@@ -1,5 +1,5 @@
 <div class="user-menu">
-	{{-- if isAuth --}}
+	{{-- TODO: if isAuth --}}
 	@if (true)
 		<a class="button medium icon fa-sign-in" href="/user/sign-in">Войти</a>
 		<br>

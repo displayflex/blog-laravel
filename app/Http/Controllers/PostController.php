@@ -10,54 +10,42 @@ class PostController extends Controller
 {
 	public function index(Request $request)
 	{
-		// return 'Index page with all posts';
-		return view(
-			'post.client.index',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'posts' => $posts ?? []
-			]
-		);
+		return view('layouts.primary', [
+			'page' => 'pages.index',
+			'title' => $title ?? 'Laravel-blog',
+			'posts' => $posts ?? []
+		]);
 	}
 
 	public function post(Request $request, $id)
 	{
-		// return 'One post page with post-id: ' . $id;
-		return view(
-			'post.client.post',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'post' => $post ?? ['title' => 'Lorem ipsum dolor sit amet.', 'date' => 'lorem', 'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptatibus?'],
-				'id' => $id ?? ''
-			]
-		);
+		return view('layouts.primary', [
+			'page' => 'pages.post',
+			'title' => $title ?? 'Laravel-blog',
+			'post' => $post ?? ['title' => 'Lorem ipsum dolor sit amet.', 'date' => 'lorem', 'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptatibus?'],
+			'id' => $id ?? ''
+		]);
 	}
 
 	public function add(Request $request)
 	{
-		// return 'Add post page';
-		return view(
-			'post.admin.add',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'formBuilder' => $formBuilder ?? [],
-				'msg' => $msg ?? ''
-			]
-		);
+		return view('layouts.primary', [
+			'page' => 'pages.post-add',
+			'title' => $title ?? 'Laravel-blog',
+			'formBuilder' => $formBuilder ?? [],
+			'msg' => $msg ?? ''
+		]);
 	}
 
 	public function edit(Request $request, $id)
 	{
-		// return 'Edit post page with post-id: ' . $id;
-		return view(
-			'post.admin.edit',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'formBuilder' => $formBuilder ?? [],
-				'msg' => $msg ?? '',
-				'id' => $id ?? ''
-			]
-		);
+		return view('layouts.primary', [
+			'page' => 'pages.post-edit',
+			'title' => $title ?? 'Laravel-blog',
+			'formBuilder' => $formBuilder ?? [],
+			'msg' => $msg ?? '',
+			'id' => $id ?? ''
+		]);
 	}
 
 	public function delete(Request $request, $id)
@@ -86,15 +74,13 @@ class PostController extends Controller
 
 		echo $counter->getValue() . '<br>';
 		$counter->increment();
-		echo $counter->getValue(). '<br>';
+		echo $counter->getValue() . '<br>';
 
 
-		return view(
-			'post.client.index',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'posts' => $posts ?? []
-			]
-		);
+		return view('layouts.primary', [
+			'page' => 'pages.index',
+			'title' => $title ?? 'Laravel-blog',
+			'posts' => $posts ?? []
+		]);
 	}
 }

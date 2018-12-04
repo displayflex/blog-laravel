@@ -8,28 +8,22 @@ class UserController extends Controller
 {
 	public function signUp(Request $request)
 	{
-		// return 'User register page';
-		return view(
-			'user.sign-up',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'formBuilder' => $formBuilder ?? [],
-				'msg' => $msg ?? ''
-			]
-		);
+		return view('layouts.secondary', [
+			'page' => 'pages.sign-up',
+			'title' => $title ?? 'Laravel-blog',
+			'formBuilder' => $formBuilder ?? [],
+			'msg' => $msg ?? ''
+		]);
 	}
 
 	public function signIn(Request $request)
 	{
-		// return 'User sign-in page';
-		return view(
-			'user.sign-in',
-			[
-				'title' => $title ?? 'Laravel-blog',
-				'formBuilder' => $formBuilder ?? [],
-				'msg' => $msg ?? ''
-			]
-		);
+		return view('layouts.secondary', [
+			'page' => 'pages.sign-in',
+			'title' => $title ?? 'Laravel-blog',
+			'formBuilder' => $formBuilder ?? [],
+			'msg' => $msg ?? ''
+		]);
 	}
 
 	public function signOut(Request $request)
