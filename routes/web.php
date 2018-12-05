@@ -42,12 +42,12 @@ Route::group(['prefix' => 'post'], function() {
 Route::group(['prefix' => 'user'], function() {
 	Route::get('/sign-up', 'UserController@signUp')
 		->name('site.user.signUp');
-	Route::post('/sign-up', 'UserController@signUp')
-		->name('site.user.signUp');
+	Route::post('/sign-up', 'UserController@signUpPost')
+		->name('site.user.signUpPost');
 	Route::get('/sign-in', 'UserController@signIn')
 		->name('site.user.signIn');
-	Route::post('/sign-in', 'UserController@signIn')
-		->name('site.user.signIn');
+	Route::post('/sign-in', 'UserController@signInPost')
+		->name('site.user.signInPost');
 	Route::get('/sign-out', 'UserController@signOut')
 		->name('site.user.signOut');
 });

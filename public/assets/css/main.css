@@ -1855,7 +1855,7 @@ select, textarea {
 		background-repeat: repeat-x, no-repeat, repeat;
 		background-size: 100% 100%, 100% 15em, auto auto;
 		background-position: top left, top center, top left;
-		padding: 7em 0 7em 0;
+		padding: 7em 0 0 0;
 	}
 
 	.wrapper {
@@ -2428,7 +2428,7 @@ select, textarea {
 }
 
 .warning-msg {
-	margin-top: 15px;
+	margin-top: 5px;
 	padding: 5px;
 	color: rgb(219, 90, 90);
 	font-size: 17px;
@@ -2449,8 +2449,11 @@ select, textarea {
 	margin-bottom: 10px;
 }
 
-.form-item input {
-	margin-bottom: 10px;
+.form-item {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 15px;
 }
 
 .form-item input[type="submit"] {
@@ -2461,4 +2464,20 @@ select, textarea {
 	font-weight: 400;
 	text-transform: none;
 	font-size: 14px;
+	width: 30%;
+	margin-bottom: 0;
+}
+
+.form-item input[type="text"],
+.form-item input[type="email"],
+.form-item input[type="password"] {
+	width: 70%;
+}
+
+.form-item span {
+	color: red;
+}
+
+div.has-error input {
+	border-color: red;
 }
