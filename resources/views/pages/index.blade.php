@@ -23,8 +23,21 @@
 					{{ $post['content'] }}
 				@endif
 			</p>
+			@if (Auth::check())
+				<a href="/post/edit/{{ $post['id'] }}">
+					<i class="fa fa-pencil"></i> Редактировать
+				</a>
+				<br>
+				<a href="/post/delete/{{ $post['id'] }}" onclick="return confirm('Удалить статью?')">
+					<i class="fa fa-times"></i> Удалить
+				</a>
+			@endif
 		</div>
 	</article>
 @empty
 	<p>Нет постов для отображения...</p>
 @endforelse
+
+@if (Auth::check())
+	<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
+@endif

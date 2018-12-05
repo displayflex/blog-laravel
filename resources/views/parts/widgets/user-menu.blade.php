@@ -1,6 +1,5 @@
 <div class="user-menu">
-	{{-- TODO: if isAuth --}}
-	@if (true)
+	@if (!Auth::check())
 		<a class="button medium icon fa-sign-in" href="/user/sign-in">Войти</a>
 		<br>
 		<br>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SignInRequest;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -12,9 +13,7 @@ class UserController extends Controller
 	{
 		return view('layouts.secondary', [
 			'page' => 'pages.sign-up',
-			'title' => $title ?? 'Laravel-blog',
-			'formBuilder' => $formBuilder ?? [],
-			'msg' => $msg ?? ''
+			'title' => 'Laravel-blog | Регистрация'
 		]);
 	}
 
@@ -49,19 +48,29 @@ class UserController extends Controller
 	{
 		return view('layouts.secondary', [
 			'page' => 'pages.sign-in',
-			'title' => $title ?? 'Laravel-blog',
-			'formBuilder' => $formBuilder ?? [],
-			'msg' => $msg ?? ''
+			'title' => 'Laravel-blog | Вход'
 		]);
 	}
 
 	public function signInPost(Request $request)
 	{
+		$login = $request->input('login');
+		$password = $request->input('password');
+		$remember = $request->input('remember') ? true : false;
 
+		if (Auth::attempt(['login' => $login, 'password' => $password], $remember)) {
+			return redirect()->intended('/');
+		} else {
+			return redirect()->back()->withInput()->withErrors([
+				'msg' => 'Неверный логин или пароль',
+			]);
+		}
 	}
 
 	public function signOut(Request $request)
 	{
-		return 'User sign-out action';
+		Auth::logout();
+
+		return redirect()->route('site.post.index');
 	}
 }

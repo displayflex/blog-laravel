@@ -14,7 +14,7 @@
 	</div>
 	<div class="form-item {{ $errors->has('submitPassword') ? 'has-error' : '' }}">
 		<label for="sign-up__submitPassword">Подтверждение пароля <span>*</span></label>
-		<input name="submitPassword" type="text" placeholder="Повторите пароль" id="sign-up__submitPassword" value="{{ old('submitPassword') }}">
+		<input name="submitPassword" type="password" placeholder="Повторите пароль" id="sign-up__submitPassword" value="{{ old('submitPassword') }}">
 	</div>
 	<div class="form-item {{ $errors->has('phone') ? 'has-error' : '' }}">
 		<label for="sign-up__phone">Номер телефона</label>
