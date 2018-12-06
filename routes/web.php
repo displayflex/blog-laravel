@@ -23,18 +23,15 @@ Route::group(['prefix' => 'post'], function() {
 		->name('site.post.post');
 	Route::get('/add', 'PostController@add')
 		->name('site.post.add');
-	Route::post('/add', 'PostController@add')
-		->name('site.post.add');
+	Route::post('/add', 'PostController@addPost')
+		->name('site.post.addPost');
 	Route::get('/edit/{id}', 'PostController@edit')
 		->where('id', '[0-9]+')
 		->name('site.post.edit');
-	Route::post('/edit/{id}', 'PostController@edit')
-	->where('id', '[0-9]+')
-	->name('site.post.edit');
-	Route::get('/delete/{id}', 'PostController@delete')
+	Route::post('/edit/{id}', 'PostController@editPost')
 		->where('id', '[0-9]+')
-		->name('site.post.delete');
-	Route::post('/delete/{id}', 'PostController@delete')
+		->name('site.post.editPost');
+	Route::get('/delete/{id}', 'PostController@delete')
 		->where('id', '[0-9]+')
 		->name('site.post.delete');
 });

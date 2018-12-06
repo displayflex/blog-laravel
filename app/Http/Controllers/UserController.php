@@ -6,11 +6,14 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SignInRequest;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class UserController extends Controller
 {
 	public function signUp(Request $request)
 	{
+		Auth::logout();
+
 		return view('layouts.secondary', [
 			'page' => 'pages.sign-up',
 			'title' => 'Laravel-blog | Регистрация'
@@ -34,7 +37,7 @@ class UserController extends Controller
 		// 								->withInput();
 		// }
 
-		DB::table('users')->insert([
+		$user = User::create([
 			'login' => $request->input('login'),
 			'email' => $request->input('email'),
 			'password' => bcrypt($request->input('password')),
@@ -46,6 +49,8 @@ class UserController extends Controller
 
 	public function signIn(Request $request)
 	{
+		Auth::logout();
+
 		return view('layouts.secondary', [
 			'page' => 'pages.sign-in',
 			'title' => 'Laravel-blog | Вход'
@@ -58,7 +63,7 @@ class UserController extends Controller
 		$password = $request->input('password');
 		$remember = $request->input('remember') ? true : false;
 
-		if (Auth::attempt(['login' => $login, 'password' => $password], $remember)) {
+		if (Auth::attempt(['login' => $login, 'password' => $password, 'deleted_at' => null], $remember)) {
 			return redirect()->intended('/');
 		} else {
 			return redirect()->back()->withInput()->withErrors([

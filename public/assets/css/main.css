@@ -2464,14 +2464,28 @@ select, textarea {
 	font-weight: 400;
 	text-transform: none;
 	font-size: 14px;
-	width: 30%;
 	margin-bottom: 0;
 }
 
-.form-item input[type="text"],
-.form-item input[type="email"],
-.form-item input[type="password"] {
+.user .form-item label {
+	width: 30%;
+}
+
+.user .form-item input[type="text"],
+.user .form-item input[type="email"],
+.user .form-item input[type="password"] {
 	width: 70%;
+}
+
+.post .form-item label {
+	width: 20%;
+}
+
+.post .form-item input[type="text"],
+.post .form-item input[type="email"],
+.post .form-item input[type="password"],
+.post .form-item textarea {
+	width: 80%;
 }
 
 .form-item span {

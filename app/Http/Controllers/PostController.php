@@ -4,59 +4,85 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Interfaces\CounterInterface;
+use App\Http\Requests\PostRequest;
+use App\Models\Post;
 
 
 class PostController extends Controller
 {
 	public function index(Request $request)
 	{
+		$posts = Post::all()
+			->sortByDesc('updated_at');
+
 		return view('layouts.primary', [
 			'page' => 'pages.index',
-			'title' => $title ?? 'Laravel-blog',
+			'title' => 'Laravel-blog',
 			'posts' => $posts ?? []
 		]);
 	}
 
 	public function post(Request $request, $id)
 	{
+		$post = Post::findOrFail($id);
+
 		return view('layouts.primary', [
 			'page' => 'pages.post',
-			'title' => $title ?? 'Laravel-blog',
-			'post' => $post ?? ['title' => 'Lorem ipsum dolor sit amet.', 'date' => 'lorem', 'content' => 'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Magnam, voluptatibus?'],
-			'id' => $id ?? ''
+			'title' => 'Laravel-blog | Просмотр поста',
+			'post' => $post
 		]);
 	}
 
 	public function add(Request $request)
 	{
-		return view('layouts.primary', [
+		return view('layouts.secondary', [
 			'page' => 'pages.post-add',
-			'title' => $title ?? 'Laravel-blog',
-			'formBuilder' => $formBuilder ?? [],
-			'msg' => $msg ?? ''
+			'title' => 'Laravel-blog | Добавить пост'
 		]);
+	}
+
+	public function addPost(PostRequest $request)
+	{
+		$post = Post::create([
+			'title' => $request->input('title'),
+			'content' => $request->input('content'),
+		]);
+
+		return redirect()->route('site.post.post', $post->id);
 	}
 
 	public function edit(Request $request, $id)
 	{
-		return view('layouts.primary', [
+		$post = Post::findOrFail($id);
+
+		return view('layouts.secondary', [
 			'page' => 'pages.post-edit',
-			'title' => $title ?? 'Laravel-blog',
-			'formBuilder' => $formBuilder ?? [],
-			'msg' => $msg ?? '',
-			'id' => $id ?? ''
+			'title' => 'Laravel-blog | Редактировать пост',
+			'post' => $post
 		]);
+	}
+
+	public function editPost(PostRequest $request, $id)
+	{
+		$post = Post::findOrFail($id);
+		$post->title = $request->input('title');
+		$post->content = $request->input('content');
+		$post->save();
+
+		return redirect()->route('site.post.post', $post->id);
 	}
 
 	public function delete(Request $request, $id)
 	{
-		return 'Delete Post with post-id: ' . $id;
+		$post = Post::findOrFail($id);
+		$post->delete();
+
+		return redirect()->route('site.post.index');
 	}
 
 	// TODO: delete this
 	public function test(Request $request, CounterInterface $counter)
 	{
-		// TODO: перенести в шаблоны
 		echo getRusDate(date("2018-10-06 17:42:17"));
 		echo '<br><br>';
 
