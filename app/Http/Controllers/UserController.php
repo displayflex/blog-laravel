@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Http\Requests\SignInRequest;
+use App\Http\Requests\SignUpRequest;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Profile;
+use App\Http\Requests\UserEditRequest;
 
 class UserController extends Controller
 {
@@ -20,7 +22,7 @@ class UserController extends Controller
 		]);
 	}
 
-	public function signUpPost(SignInRequest $request)
+	public function signUpPost(SignUpRequest $request)
 	{
 		// $validator = \Validator::make($request->all(), [
 		// 	'login' => 'max:255|min:3',
@@ -37,12 +39,23 @@ class UserController extends Controller
 		// 								->withInput();
 		// }
 
+		$phone = $request->input('phone');
+
 		$user = User::create([
 			'login' => $request->input('login'),
 			'email' => $request->input('email'),
-			'password' => bcrypt($request->input('password')),
-			'phone' => $request->input('phone', null),
+			'password' => bcrypt($request->input('password'))
 		]);
+
+		if ($phone) {
+			$profile = new Profile([
+				'phone' => $phone
+			]);
+
+			$user->profile()->save($profile);
+		}
+
+		Auth::loginUsingId($user->id, true);
 
 		return redirect()->route('site.post.index');
 	}
@@ -77,5 +90,66 @@ class UserController extends Controller
 		Auth::logout();
 
 		return redirect()->route('site.post.index');
+	}
+
+	public function profile(Request $request)
+	{
+		// TODO: if isAuth
+		$id = Auth::user()->id ?? null;
+		$user = User::findOrFail($id);
+
+		return view('layouts.primary', [
+			'page' => 'pages.profile',
+			'title' => 'Laravel-blog | Профиль пользователя',
+			'user' => $user
+		]);
+	}
+
+	public function edit(Request $request)
+	{
+		$id = Auth::user()->id ?? null;
+		$user = User::findOrFail($id);
+
+		return view('layouts.secondary', [
+			'page' => 'pages.user-edit',
+			'title' => 'Laravel-blog | Редактировать профиль',
+			'user' => $user
+		]);
+	}
+
+	public function editPost(UserEditRequest $request)
+	{
+		$id = Auth::user()->id ?? null;
+		$user = User::findOrFail($id);
+
+		$email = $request->input('email');
+		$name = $request->input('name');
+		$surname = $request->input('surname');
+		$phone = $request->input('phone');
+		$birthdate = $request->input('birthdate');
+
+		$user->email = $email;
+
+		if ($user->profile === null) {
+			$profile = new Profile([
+				'name' => $name,
+				'surname' => $surname,
+				'phone' => $phone,
+				'birthdate' => $birthdate
+			]);
+
+			$user->profile()->save($profile);
+		} else {
+			$user->profile->update([
+				'name' => $name,
+				'surname' => $surname,
+				'phone' => $phone,
+				'birthdate' => $birthdate
+			]);
+		}
+
+		$user->save();
+
+		return redirect()->route('site.user.profile');
 	}
 }

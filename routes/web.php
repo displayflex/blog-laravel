@@ -47,4 +47,10 @@ Route::group(['prefix' => 'user'], function() {
 		->name('site.user.signInPost');
 	Route::get('/sign-out', 'UserController@signOut')
 		->name('site.user.signOut');
+	Route::get('/profile', 'UserController@profile')
+		->name('site.user.profile');
+	Route::get('/edit', 'UserController@edit')
+		->name('site.user.edit');
+	Route::post('/edit', 'UserController@editPost')
+		->name('site.user.editPost');
 });

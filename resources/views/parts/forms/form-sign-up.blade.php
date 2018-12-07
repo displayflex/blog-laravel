@@ -1,7 +1,7 @@
 <form method="POST" class="form user" action="{{ route('site.user.signUpPost') }}">
 	{{ csrf_field() }}
 	<div class="form-item {{ $errors->has('login') ? 'has-error' : '' }}">
-		<label for="user__login">Имя/никнейм <span>*</span></label>
+		<label for="user__login">Логин <span>*</span></label>
 		<input name="login" type="text" placeholder="Введите логин" id="user__login" value="{{ old('login') }}">
 	</div>
 	<div class="form-item {{ $errors->has('email') ? 'has-error' : '' }}">

@@ -9,5 +9,10 @@ class User extends Model
 {
 	use SoftDeletes;
 
-	protected $guarded = ['id', 'email_verified_at', 'created_at', 'updated_at', 'deleted_at'];
+	protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+
+	public function profile()
+	{
+		return $this->hasOne('App\Models\Profile');
+	}
 }

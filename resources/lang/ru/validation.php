@@ -142,6 +142,9 @@ return [
         'phone' => [
             'digits_between' => 'Поле :attribute должно содержать от :min до :max цифр.',
         ],
+        'birthdate' => [
+            'before' => 'В поле :attribute должна быть дата до сегодняшнего дня.',
+        ],
     ],
 
     /*
@@ -193,5 +196,7 @@ return [
         'size'                  => 'Размер',
         'login'                 => 'Имя',
         'submitPassword'        => 'Подтверждение пароля',
+        'birthdate'             => 'День рождения',
+        'today'                 => 'Сегодня'
     ],
 ];

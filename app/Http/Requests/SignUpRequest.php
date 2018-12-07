@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class SignInRequest extends FormRequest
+class SignUpRequest extends FormRequest
 {
 	/**
 	 * Determine if the user is authorized to make this request.
@@ -29,7 +29,7 @@ class SignInRequest extends FormRequest
 			'password' => 'required|max:255|min:6',
 			'submitPassword' => 'required|same:password',
 			// 'phone' => 'regex:/\+\d{1}\s{1}\(\d{3}\)\s{1}\d{3}\-\d{2}\-\d{2}/',
-			'phone' => 'numeric|digits_between:6,16',
+			'phone' => 'nullable|numeric|digits_between:6,15',
 			'isConfirmed' => 'accepted'
 		];
 	}

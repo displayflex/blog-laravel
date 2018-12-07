@@ -7,7 +7,7 @@
 					<div class="inner">
 
 						<!-- Logo -->
-							<h1><a href="/" id="logo">PHP Блог</a></h1>
+							<h1><a href="/" id="logo">Laravel Блог</a></h1>
 
 						<!-- Nav -->
 							<nav id="nav">
