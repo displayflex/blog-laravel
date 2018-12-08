@@ -8,6 +8,7 @@ use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\Tag;
 
 
 class PostController extends Controller
@@ -48,11 +49,41 @@ class PostController extends Controller
 		$id = Auth::user()->id ?? null;
 		$user = User::findOrFail($id);
 
-		$post = Post::create([
-			'user_id' => $user->id,
+		$tags = explode(',', $request->input('tags'));
+		$processedTags = [];
+
+		/**
+		 * Убирает пробелы по краям, преобразует все слова в нижний регистр с первой заглавной буквой.
+		 */
+		foreach ($tags as $key => $value) {
+			$processedTags[$key] = mb_convert_case(mb_strtolower(trim($value)), MB_CASE_TITLE, "UTF-8");
+		}
+
+		/**
+		 * Добавляет теги в БД, при условии что такого тега нет в БД
+		 */
+		foreach ($processedTags as $key => $value) {
+			if (!Tag::where('name', $value)->first()) {
+				Tag::create([
+					'name' => $value
+				]);
+			}
+		}
+
+		$tagsIds = [];
+		foreach ($processedTags as $key => $value) {
+			$tagsIds[$key] = Tag::where('name', $value)->first()->id;
+		}
+
+		$post = $user->posts()->create([
 			'title' => $request->input('title'),
 			'content' => $request->input('content')
 		]);
+
+		/**
+		 * Синхронизированное присоединение нескольких тегов к статье (при повторе вставлять не будет)
+		 */
+		$post->tags()->sync($tagsIds);
 
 		return redirect()->route('site.post.post', $post->id);
 	}
@@ -86,32 +117,15 @@ class PostController extends Controller
 		return redirect()->route('site.post.index');
 	}
 
-	// TODO: delete this
-	public function test(Request $request, CounterInterface $counter)
+	public function tag(Request $request, $id)
 	{
-		echo getRusDate(date("2018-10-06 17:42:17"));
-		echo '<br><br>';
-
-		// $counter = resolve('CounterSingleton');
-		// echo $counter->getValue() . '<br>';
-		// $counter->increment();
-		// echo $counter->getValue(). '<br>';
-
-		// $counter2 = resolve('CounterSingleton');
-		// echo $counter2->getValue() . '<br>';
-
-		// $counter3 = resolve('CounterBind');
-		// echo $counter3->getValue() . '<br>';
-
-
-		echo $counter->getValue() . '<br>';
-		$counter->increment();
-		echo $counter->getValue() . '<br>';
-
+		$tag = Tag::findOrFail($id);
+		$posts = $tag->posts->sortByDesc('updated_at');
 
 		return view('layouts.primary', [
 			'page' => 'pages.index',
-			'title' => $title ?? 'Laravel-blog',
+			'title' => 'Laravel-blog',
+			'tagName' => $tag->name,
 			'posts' => $posts ?? []
 		]);
 	}

@@ -14,9 +14,6 @@
 Route::get('/', 'PostController@index')
 	->name('site.post.index');
 
-Route::get('/test', 'PostController@test')
-	->name('site.post.test'); // TODO: delete this
-
 Route::group(['prefix' => 'post'], function () {
 	Route::get('/{id}', 'PostController@post')
 		->where('id', '[0-9]+')
@@ -34,6 +31,9 @@ Route::group(['prefix' => 'post'], function () {
 	Route::get('/delete/{id}', 'PostController@delete')
 		->where('id', '[0-9]+')
 		->name('site.post.delete');
+	Route::get('/tag/{id}', 'PostController@tag')
+		->where('id', '[0-9]+')
+		->name('site.post.tag');
 });
 
 Route::group(['prefix' => 'user'], function () {

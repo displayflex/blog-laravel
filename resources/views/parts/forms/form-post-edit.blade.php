@@ -1,15 +1,15 @@
-<form method="POST" class="form post" action="{{ route('site.post.editPost', $post->id) }}">
+<form method="POST" class="form post-form" action="{{ route('site.post.editPost', $post->id) }}">
 	{{ csrf_field() }}
 	<div class="form-item">
-		<label for="post__title">Заголовок <span>*</span></label>
-		<input name="title" type="text" placeholder="Введите заголовок поста" id="post__title" value="{{ $post->title }}">
+		<label for="post-form__title">Заголовок <span>*</span></label>
+		<input name="title" type="text" placeholder="Введите заголовок поста" id="post-form__title" value="{{ $post->title }}">
 	</div>
 	<div class="form-item">
-		<label for="post__content">Контент <span>*</span></label>
-		<textarea name="content" id="post__content" placeholder="Введите содержимое поста">{{ $post->content }}</textarea>
+		<label for="post-form__content">Контент <span>*</span></label>
+		<textarea name="content" id="post-form__content" placeholder="Введите содержимое поста">{{ $post->content }}</textarea>
 	</div>
 	<div class="form-item">
-		<input type="submit" value="Добавить пост">
+		<input type="submit" value="Редактировать пост">
 	</div>
 </form>
 
