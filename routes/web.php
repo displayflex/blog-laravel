@@ -9,7 +9,7 @@
 | routes are loaded by the RouteServiceProvider within a group which
 | contains the "web" middleware group. Now create something great!
 |
-*/
+ */
 
 Route::get('/', 'PostController@index')
 	->name('site.post.index');
@@ -17,7 +17,7 @@ Route::get('/', 'PostController@index')
 Route::get('/test', 'PostController@test')
 	->name('site.post.test'); // TODO: delete this
 
-Route::group(['prefix' => 'post'], function() {
+Route::group(['prefix' => 'post'], function () {
 	Route::get('/{id}', 'PostController@post')
 		->where('id', '[0-9]+')
 		->name('site.post.post');
@@ -36,7 +36,7 @@ Route::group(['prefix' => 'post'], function() {
 		->name('site.post.delete');
 });
 
-Route::group(['prefix' => 'user'], function() {
+Route::group(['prefix' => 'user'], function () {
 	Route::get('/sign-up', 'UserController@signUp')
 		->name('site.user.signUp');
 	Route::post('/sign-up', 'UserController@signUpPost')
@@ -47,10 +47,13 @@ Route::group(['prefix' => 'user'], function() {
 		->name('site.user.signInPost');
 	Route::get('/sign-out', 'UserController@signOut')
 		->name('site.user.signOut');
-	Route::get('/profile', 'UserController@profile')
+	Route::get('/{id}', 'UserController@profile')
+		->where('id', '[0-9]+')
 		->name('site.user.profile');
-	Route::get('/edit', 'UserController@edit')
+	Route::get('/{id}/edit', 'UserController@edit')
+		->where('id', '[0-9]+')
 		->name('site.user.edit');
-	Route::post('/edit', 'UserController@editPost')
+	Route::post('/{id}/edit', 'UserController@editPost')
+		->where('id', '[0-9]+')
 		->name('site.user.editPost');
 });

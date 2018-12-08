@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Interfaces\CounterInterface;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class PostController extends Controller
@@ -43,9 +45,13 @@ class PostController extends Controller
 
 	public function addPost(PostRequest $request)
 	{
+		$id = Auth::user()->id ?? null;
+		$user = User::findOrFail($id);
+
 		$post = Post::create([
+			'user_id' => $user->id,
 			'title' => $request->input('title'),
-			'content' => $request->input('content'),
+			'content' => $request->input('content')
 		]);
 
 		return redirect()->route('site.post.post', $post->id);

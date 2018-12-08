@@ -29,4 +29,6 @@
 	</tbody>
 </table>
 
-<a class="button alt icon fa-pencil-square-o" href="/user/edit">Редктировать профиль</a>
+@if ($user->id === Auth::user()->id)
+	<a class="button alt icon fa-pencil-square-o" href="/user/{{ $user->id }}/edit">Редктировать профиль</a>
+@endif

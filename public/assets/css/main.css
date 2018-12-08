@@ -2670,3 +2670,16 @@ input[type=date]::-webkit-inner-spin-button {
 	-webkit-appearance: none;
 	display: none;
 }
+
+.post__author {
+	font-size: 0.55em;
+}
+
+.single-post__author {
+	font-size: 100%;
+}
+
+.post__author-link,
+.single-post__author-link {
+	text-decoration: underline;
+}

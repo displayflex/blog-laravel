@@ -92,10 +92,12 @@ class UserController extends Controller
 		return redirect()->route('site.post.index');
 	}
 
-	public function profile(Request $request)
+	public function profile(Request $request, $id)
 	{
-		// TODO: if isAuth
-		$id = Auth::user()->id ?? null;
+		if (!Auth::check()) {
+			return abort(404);
+		}
+
 		$user = User::findOrFail($id);
 
 		return view('layouts.primary', [
@@ -105,9 +107,14 @@ class UserController extends Controller
 		]);
 	}
 
-	public function edit(Request $request)
+	public function edit(Request $request, $id)
 	{
-		$id = Auth::user()->id ?? null;
+		$authId = Auth::user()->id ?? null;
+
+		if ($authId !== $id) {
+			return redirect()->back();
+		}
+
 		$user = User::findOrFail($id);
 
 		return view('layouts.secondary', [
@@ -117,9 +124,14 @@ class UserController extends Controller
 		]);
 	}
 
-	public function editPost(UserEditRequest $request)
+	public function editPost(UserEditRequest $request, $id)
 	{
-		$id = Auth::user()->id ?? null;
+		$authId = Auth::user()->id ?? null;
+
+		if ($authId !== $id) {
+			return redirect()->back();
+		}
+
 		$user = User::findOrFail($id);
 
 		$email = $request->input('email');

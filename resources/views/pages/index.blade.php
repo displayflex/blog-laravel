@@ -14,6 +14,13 @@
 					<a href="post/{{ $post->id }}">
 						{{ $post->title }}
 					</a>
+					<p class="post__author">
+						@if (Auth::check())
+							Автор: <a class="post__author-link" href="user/{{ $post->user->id }}">{{ $post->user->login }}</a>
+						@else
+							Автор: {{ $post->user->login }}
+						@endif
+					</p>
 				</h3>
 			</header>
 			<p>
