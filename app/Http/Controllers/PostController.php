@@ -9,6 +9,7 @@ use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Tag;
+use App\Repositories\TagHandleRepository;
 
 
 class PostController extends Controller
@@ -44,36 +45,13 @@ class PostController extends Controller
 		]);
 	}
 
-	public function addPost(PostRequest $request)
+	public function addPost(PostRequest $request, TagHandleRepository $tagHandleRepository)
 	{
 		$id = Auth::user()->id ?? null;
 		$user = User::findOrFail($id);
 
 		$tags = explode(',', $request->input('tags'));
-		$processedTags = [];
-
-		/**
-		 * Убирает пробелы по краям, преобразует все слова в нижний регистр с первой заглавной буквой.
-		 */
-		foreach ($tags as $key => $value) {
-			$processedTags[$key] = mb_convert_case(mb_strtolower(trim($value)), MB_CASE_TITLE, "UTF-8");
-		}
-
-		/**
-		 * Добавляет теги в БД, при условии что такого тега нет в БД
-		 */
-		foreach ($processedTags as $key => $value) {
-			if (!Tag::where('name', $value)->first()) {
-				Tag::create([
-					'name' => $value
-				]);
-			}
-		}
-
-		$tagsIds = [];
-		foreach ($processedTags as $key => $value) {
-			$tagsIds[$key] = Tag::where('name', $value)->first()->id;
-		}
+		$tagsIds = $tagHandleRepository->handle($tags);
 
 		$post = $user->posts()->create([
 			'title' => $request->input('title'),
@@ -130,3 +108,6 @@ class PostController extends Controller
 		]);
 	}
 }
+
+// TODO: проверить что бы не было подключений к БД из шаблнов
+// TODO: отдельный контроллер для тегов??
