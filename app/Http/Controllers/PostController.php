@@ -111,3 +111,5 @@ class PostController extends Controller
 
 // TODO: проверить что бы не было подключений к БД из шаблнов
 // TODO: отдельный контроллер для тегов??
+// TODO: добавить views_count
+// TODO: добавить picture

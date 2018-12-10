@@ -1,4 +1,4 @@
-<form method="POST" class="form profile" action="{{ route('site.user.editPost') }}">
+<form method="POST" class="form profile" action="{{ route('site.user.editPost', $user->id) }}">
 	{{ csrf_field() }}
 	<div class="form-item">
 		<label for="profile__login">Логин</label>

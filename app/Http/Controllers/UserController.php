@@ -109,7 +109,7 @@ class UserController extends Controller
 
 	public function edit(Request $request, $id)
 	{
-		$authId = Auth::user()->id ?? null;
+		$authId = (string)Auth::user()->id ?? null;
 
 		if ($authId !== $id) {
 			return redirect()->back();
@@ -126,7 +126,7 @@ class UserController extends Controller
 
 	public function editPost(UserEditRequest $request, $id)
 	{
-		$authId = Auth::user()->id ?? null;
+		$authId = (string)Auth::user()->id ?? null;
 
 		if ($authId !== $id) {
 			return redirect()->back();
@@ -162,6 +162,6 @@ class UserController extends Controller
 
 		$user->save();
 
-		return redirect()->route('site.user.profile');
+		return redirect()->route('site.user.profile', $id);
 	}
 }
