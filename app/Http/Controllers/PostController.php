@@ -30,6 +30,9 @@ class PostController extends Controller
 	{
 		$post = Post::findOrFail($id);
 
+		$post->views_count += 1;
+		$post->save();
+
 		return view('layouts.primary', [
 			'page' => 'pages.post',
 			'title' => 'Laravel-blog | Просмотр поста',
@@ -110,6 +113,3 @@ class PostController extends Controller
 }
 
 // TODO: проверить что бы не было подключений к БД из шаблнов
-// TODO: отдельный контроллер для тегов??
-// TODO: добавить views_count
-// TODO: добавить picture

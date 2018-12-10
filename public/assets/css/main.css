@@ -2688,12 +2688,40 @@ input[type=date]::-webkit-inner-spin-button {
 	position: relative;
 }
 
+.post__about-wrapper {
+	display: flex;
+}
+
 .post__author {
-	font-size: 0.55em;
+	font-size: 80%;
+	margin-right: 20px;
+}
+
+.post__views-count {
+	font-size: 80%;
 }
 
 .single-post {
 	position: relative;
+}
+
+.single-post__image-wrapper {
+	height: 167px;
+	max-width: 180px;
+	float: left;
+	margin-right: 25px;
+	margin-bottom: 10px;
+}
+
+.single-post__image {
+	border-radius: 5px;
+}
+
+.single-post__views-count {
+	position: absolute;
+	bottom: 0;
+	right: 15px;
+	font-size: 100%;
 }
 
 .single-post__author {

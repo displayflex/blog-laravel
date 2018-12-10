@@ -8,7 +8,8 @@
 	<article class="box excerpt post">
 		<div class="post__image-wrapper">
 			<a href="post/{{ $post->id }}" class="image left">
-				<img src="/assets/images/pic0{{ mt_rand(4,6) }}.jpg" alt="">
+				{{-- <img src="/assets/images/pic0{{ mt_rand(4,6) }}.jpg" alt=""> --}}
+				<img src="{{ $post->image }}" alt="">
 			</a>
 		</div><!-- /post__image-wrapper -->
 		<div class="post__content">
@@ -23,20 +24,23 @@
 						@endif
 					@endforeach
 				</ul>
-				<h3>
-					<a href="post/{{ $post->id }}">{{ $post->title }}</a>
-					<p class="post__author">
-						@if (Auth::check())
-							Автор: <a class="post__author-link" href="/user/{{ $post->user->id }}">{{ $post->user->login }}</a>
-						@else
-							Автор: {{ $post->user->login }}
-						@endif
-					</p>
-				</h3>
+				<h3><a href="post/{{ $post->id }}">{{ $post->title }}</a></h3>
+					<div class="post__about-wrapper">
+						<p class="post__author">
+							@if (Auth::check())
+								Автор: <a class="post__author-link" href="/user/{{ $post->user->id }}">{{ $post->user->login }}</a>
+							@else
+								Автор: {{ $post->user->login }}
+							@endif
+						</p>
+						<span class="post__views-count">
+							<i class="fa fa-eye"></i> {{ $post->views_count }}
+						</span>
+					</div>
 			</header>
-			<p>
-				@if (strlen($post->content) >= 150)
-					{{ substr($post->content, 0, 150) . ' ...' }}
+			<p class="post__announce">
+				@if (mb_strlen($post->content) >= 200)
+					{{ mb_substr($post->content, 0, 200) . ' ...' }}
 				@else
 					{{ $post->content }}
 				@endif
