@@ -12,23 +12,25 @@
 		</tr>
 		<tr>
 			<td class="user-profile__data user-profile__data--first">Имя</td>
-			<td class="user-profile__data user-profile__data--second">{{ $user->profile->name ?? '--' }}</td>
+			<td class="user-profile__data user-profile__data--second">{{ $userProfile->name ?? '--' }}</td>
 		</tr>
 		<tr>
 			<td class="user-profile__data user-profile__data--first">Фамилия</td>
-			<td class="user-profile__data user-profile__data--second">{{ $user->profile->surname ?? '--' }}</td>
+			<td class="user-profile__data user-profile__data--second">{{ $userProfile->surname ?? '--' }}</td>
 		</tr>
 		<tr>
 			<td class="user-profile__data user-profile__data--first">Телефон</td>
-			<td class="user-profile__data user-profile__data--second">{{ $user->profile->phone ?? '--' }}</td>
+			<td class="user-profile__data user-profile__data--second">{{ $userProfile->phone ?? '--' }}</td>
 		</tr>
 		<tr>
 			<td class="user-profile__data user-profile__data--first">Дата рождения</td>
-			<td class="user-profile__data user-profile__data--second">{{ $user->profile->birthdate ?? '--' }}</td>
+			<td class="user-profile__data user-profile__data--second">{{ $userProfile->birthdate ?? '--' }}</td>
 		</tr>
 	</tbody>
 </table>
 
-@if ($user->id === Auth::user()->id)
-	<a class="button alt icon fa-pencil-square-o" href="/user/{{ $user->id }}/edit">Редктировать профиль</a>
-@endif
+@can('update', App\Models\Profile::class)
+	@if ($isUserProfile)
+		<a class="button alt icon fa-pencil-square-o" href="/user/{{ $user->id }}/edit">Редктировать профиль</a>
+	@endif
+@endcan

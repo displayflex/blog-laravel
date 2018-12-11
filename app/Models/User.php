@@ -2,14 +2,17 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Model
+class User extends Authenticatable
 {
+	use Notifiable;
 	use SoftDeletes;
 
 	protected $guarded = ['id', 'created_at', 'updated_at', 'deleted_at'];
+	protected $hidden = ['password', 'remember_token'];
 
 	public function profile()
 	{
@@ -19,5 +22,10 @@ class User extends Model
 	public function posts()
 	{
 		return $this->hasMany('App\Models\Post');
+	}
+
+	public function roles()
+	{
+		return $this->belongsToMany('App\Models\Role');
 	}
 }

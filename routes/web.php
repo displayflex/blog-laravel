@@ -19,18 +19,23 @@ Route::group(['prefix' => 'post'], function () {
 		->where('id', '[0-9]+')
 		->name('site.post.post');
 	Route::get('/add', 'PostController@add')
-		->name('site.post.add');
+		->name('site.post.add')
+		->middleware('can:create,App\Models\Post');
 	Route::post('/add', 'PostController@addPost')
-		->name('site.post.addPost');
+		->name('site.post.addPost')
+		->middleware('can:create,App\Models\Post');
 	Route::get('/edit/{id}', 'PostController@edit')
 		->where('id', '[0-9]+')
-		->name('site.post.edit');
+		->name('site.post.edit')
+		->middleware('can:update,App\Models\Post');
 	Route::post('/edit/{id}', 'PostController@editPost')
 		->where('id', '[0-9]+')
-		->name('site.post.editPost');
+		->name('site.post.editPost')
+		->middleware('can:update,App\Models\Post');
 	Route::get('/delete/{id}', 'PostController@delete')
 		->where('id', '[0-9]+')
-		->name('site.post.delete');
+		->name('site.post.delete')
+		->middleware('can:delete,App\Models\Post');
 	Route::get('/tag/{id}', 'PostController@tag')
 		->where('id', '[0-9]+')
 		->name('site.post.tag');
@@ -49,11 +54,14 @@ Route::group(['prefix' => 'user'], function () {
 		->name('site.user.signOut');
 	Route::get('/{id}', 'UserController@profile')
 		->where('id', '[0-9]+')
-		->name('site.user.profile');
+		->name('site.user.profile')
+		->middleware('can:view,App\Models\Profile');
 	Route::get('/{id}/edit', 'UserController@edit')
 		->where('id', '[0-9]+')
-		->name('site.user.edit');
+		->name('site.user.edit')
+		->middleware('can:update,App\Models\Profile');
 	Route::post('/{id}/edit', 'UserController@editPost')
 		->where('id', '[0-9]+')
-		->name('site.user.editPost');
+		->name('site.user.editPost')
+		->middleware('can:update,App\Models\Profile');
 });

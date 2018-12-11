@@ -24,21 +24,6 @@ class UserController extends Controller
 
 	public function signUpPost(SignUpRequest $request)
 	{
-		// $validator = \Validator::make($request->all(), [
-		// 	'login' => 'max:255|min:3',
-		// 	'email' => 'required|max:255|email|unique:users',
-		// 	'password' => 'required|max:255|min:6',
-		// 	'submitPassword' => 'required|same:password',
-		// 	'phone' => 'numeric|digits_between:6,16',
-		// 	'isConfirmed' => 'accepted'
-		// ]);
-
-		// if ($validator->fails()) {
-		// 		return redirect('user/sign-up')
-		// 								->withErrors($validator)
-		// 								->withInput();
-		// }
-
 		$phone = $request->input('phone');
 
 		$user = User::create([
@@ -94,45 +79,45 @@ class UserController extends Controller
 
 	public function profile(Request $request, $id)
 	{
-		if (!Auth::check()) {
-			return abort(404);
-		}
+		$user = User::findOrFail(Auth::user()->id);
+		$userProfile = $user->profile;
 
-		$user = User::findOrFail($id);
+		$isUserProfile = $id === (string)Auth::user()->id ? true : false;
 
 		return view('layouts.primary', [
 			'page' => 'pages.profile',
 			'title' => 'Laravel-blog | Профиль пользователя',
-			'user' => $user
+			'user' => $user,
+			'userProfile' => $userProfile,
+			'isUserProfile' => $isUserProfile
 		]);
 	}
 
 	public function edit(Request $request, $id)
 	{
-		$authId = (string)Auth::user()->id ?? null;
+		$user = User::findOrFail(Auth::user()->id);
 
-		if ($authId !== $id) {
+		if ($id !== (string)$user->id) {
 			return redirect()->back();
 		}
 
-		$user = User::findOrFail($id);
+		$userProfile = $user->profile;
 
 		return view('layouts.secondary', [
 			'page' => 'pages.user-edit',
 			'title' => 'Laravel-blog | Редактировать профиль',
-			'user' => $user
+			'user' => $user,
+			'userProfile' => $userProfile
 		]);
 	}
 
 	public function editPost(UserEditRequest $request, $id)
 	{
-		$authId = (string)Auth::user()->id ?? null;
+		$user = User::findOrFail(Auth::user()->id);
 
-		if ($authId !== $id) {
+		if ($id !== (string)$user->id) {
 			return redirect()->back();
 		}
-
-		$user = User::findOrFail($id);
 
 		$email = $request->input('email');
 		$name = $request->input('name');

@@ -16,13 +16,17 @@ class PostController extends Controller
 {
 	public function index(Request $request)
 	{
-		$posts = Post::all()
-			->sortByDesc('updated_at');
+		$posts = Post::all()->sortByDesc('updated_at');
+
+		if (Auth::check()) {
+			$postsByUser = $posts->where('user_id', Auth::user()->id);
+		}
 
 		return view('layouts.primary', [
 			'page' => 'pages.index',
 			'title' => 'Laravel-blog',
-			'posts' => $posts ?? []
+			'posts' => $posts ?? [],
+			'postsByUser' => $postsByUser ?? null
 		]);
 	}
 
@@ -33,10 +37,15 @@ class PostController extends Controller
 		$post->views_count += 1;
 		$post->save();
 
+		if (Auth::check()) {
+			$isPostByUser = Auth::user()->posts->where('id', $post->id)->first() ? true : false;
+		}
+
 		return view('layouts.primary', [
 			'page' => 'pages.post',
 			'title' => 'Laravel-blog | Просмотр поста',
-			'post' => $post
+			'post' => $post,
+			'isPostByUser' => $isPostByUser ?? false
 		]);
 	}
 
@@ -73,6 +82,10 @@ class PostController extends Controller
 	{
 		$post = Post::findOrFail($id);
 
+		if ($post->user->id !== Auth::user()->id) {
+			return redirect()->back();
+		}
+
 		return view('layouts.secondary', [
 			'page' => 'pages.post-edit',
 			'title' => 'Laravel-blog | Редактировать пост',
@@ -83,6 +96,11 @@ class PostController extends Controller
 	public function editPost(PostRequest $request, $id)
 	{
 		$post = Post::findOrFail($id);
+
+		if ($post->user->id !== Auth::user()->id) {
+			return redirect()->back();
+		}
+
 		$post->title = $request->input('title');
 		$post->content = $request->input('content');
 		$post->save();
@@ -93,6 +111,11 @@ class PostController extends Controller
 	public function delete(Request $request, $id)
 	{
 		$post = Post::findOrFail($id);
+
+		if ($post->user->id !== Auth::user()->id) {
+			return redirect()->back();
+		}
+
 		$post->delete();
 
 		return redirect()->route('site.post.index');
@@ -112,4 +135,4 @@ class PostController extends Controller
 	}
 }
 
-// TODO: проверить что бы не было подключений к БД из шаблнов
+// TODO: make admin (using gate and admin-controllers?)

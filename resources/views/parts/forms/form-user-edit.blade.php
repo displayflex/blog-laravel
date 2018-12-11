@@ -10,19 +10,19 @@
 	</div>
 	<div class="form-item">
 		<label for="profile__name">Имя</label>
-		<input name="name" type="text" placeholder="Введите имя" id="profile__name" value="{{ $user->profile->name ?? '' }}">
+		<input name="name" type="text" placeholder="Введите имя" id="profile__name" value="{{ $userProfile->name ?? '' }}">
 	</div>
 	<div class="form-item">
 		<label for="profile__surname">Фамилия</label>
-		<input name="surname" type="text" placeholder="Введите фамилию" id="profile__surname" value="{{ $user->profile->surname ?? '' }}">
+		<input name="surname" type="text" placeholder="Введите фамилию" id="profile__surname" value="{{ $userProfile->surname ?? '' }}">
 	</div>
 	<div class="form-item">
 		<label for="profile__phone">Телефон</label>
-		<input name="phone" type="text" placeholder="Введите номер телефона" id="profile__phone" value="{{ $user->profile->phone ?? '' }}">
+		<input name="phone" type="text" placeholder="Введите номер телефона" id="profile__phone" value="{{ $userProfile->phone ?? '' }}">
 	</div>
 	<div class="form-item">
 		<label for="profile__birthdate">Дата рождения</label>
-		<input name="birthdate" type="date" placeholder="Введите Ваш день рождения" id="profile__birthdate" value="{{ $user->profile->birthdate ?? '' }}">
+		<input name="birthdate" type="date" placeholder="Введите Ваш день рождения" id="profile__birthdate" value="{{ $userProfile->birthdate ?? '' }}">
 	</div>
 	<div class="form-item">
 		<input type="submit" value="Изменить профиль">

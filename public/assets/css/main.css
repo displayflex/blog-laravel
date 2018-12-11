@@ -2761,19 +2761,22 @@ input[type=date]::-webkit-inner-spin-button {
 	background-color: #468ef1;
 }
 
-.post__change {
+.post__change,
+.single-post__change {
 	font-size: 22px;
 	position: absolute;
 	top: 0;
 	display: block;
 }
 
-.post__change--edit {
+.post__change--edit,
+.single-post__change--edit {
 	color: #3081af;
 	right: 45px;
 }
 
-.post__change--delete {
+.post__change--delete,
+.single-post__change--delete {
 	color: rgb(219, 90, 90);
 	right: 20px;
 }

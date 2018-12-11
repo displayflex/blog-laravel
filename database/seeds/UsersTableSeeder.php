@@ -15,21 +15,28 @@ class UsersTableSeeder extends Seeder
 		$faker = Faker\Factory::create('ru_RU');
 
 		User::create([
-			'login' => 'john',
-			'email' => 'john@gmail.com',
+			'login' => 'admin',
+			'email' => 'admin@gmail.com',
 			'password' => bcrypt('212180')
 		]);
 
 		User::create([
-			'login' => 'doe',
+			'login' => 'editor',
+			'email' => 'editor@gmail.com',
+			'password' => bcrypt('212180')
+		]);
+
+		User::create([
+			'login' => 'user',
 			'email' => 'doe@gmail.com',
 			'password' => bcrypt('212180')
 		]);
 
-		echo 'john: 212180' . "\n";
-		echo 'doe: 212180' . "\n";
+		echo 'admin: 212180' . "\n";
+		echo 'editor: 212180' . "\n";
+		echo 'user: 212180' . "\n";
 
-		for ($i = 1; $i < 9; $i++) {
+		for ($i = 1; $i < 8; $i++) {
 			$login = $faker->userName();
 			$password = str_random(10);
 

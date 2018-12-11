@@ -27,11 +27,11 @@
 				<h3><a href="post/{{ $post->id }}">{{ $post->title }}</a></h3>
 					<div class="post__about-wrapper">
 						<p class="post__author">
-							@if (Auth::check())
+							@can('view', App\Models\Profile::class)
 								Автор: <a class="post__author-link" href="/user/{{ $post->user->id }}">{{ $post->user->login }}</a>
 							@else
 								Автор: {{ $post->user->login }}
-							@endif
+							@endcan
 						</p>
 						<span class="post__views-count">
 							<i class="fa fa-eye"></i> {{ $post->views_count }}
@@ -45,14 +45,20 @@
 					{{ $post->content }}
 				@endif
 			</p>
-			@if (Auth::check() && $post->user->id === Auth::user()->id)
-				<a class="post__change post__change--edit" href="/post/edit/{{ $post->id }}">
-					<i class="fa fa-pencil"></i>
-				</a>
-				<a class="post__change post__change--delete" href="/post/delete/{{ $post->id }}" onclick="return confirm('Удалить статью?')">
-					<i class="fa fa-times"></i>
-				</a>
-			@endif
+			@can('update', App\Models\Post::class)
+				@if ($postsByUser->where('id', $post->id)->first())
+					<a class="post__change post__change--edit" href="/post/edit/{{ $post->id }}">
+						<i class="fa fa-pencil"></i>
+					</a>
+				@endif
+			@endcan
+			@can('delete', App\Models\Post::class)
+				@if ($postsByUser->where('id', $post->id)->first())
+					<a class="post__change post__change--delete" href="/post/delete/{{ $post->id }}" onclick="return confirm('Удалить статью?')">
+						<i class="fa fa-times"></i>
+					</a>
+				@endif
+			@endcan
 		</div><!-- /post__content -->
 	</article>
 @empty
@@ -62,3 +68,5 @@
 @if (Auth::check())
 	<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
 @endif
+
+{{-- TODO: убрать подключение к БД? (в 2 местах) --}}
