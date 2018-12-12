@@ -79,35 +79,27 @@ class UserController extends Controller
 
 	public function profile(Request $request, $id)
 	{
-		$user = User::findOrFail(Auth::user()->id);
-		$userProfile = $user->profile;
-
-		$isUserProfile = $id === (string)Auth::user()->id ? true : false;
+		$user = User::where('id', $id)->with('profile')->firstOrFail();
 
 		return view('layouts.primary', [
 			'page' => 'pages.profile',
 			'title' => 'Laravel-blog | Профиль пользователя',
-			'user' => $user,
-			'userProfile' => $userProfile,
-			'isUserProfile' => $isUserProfile
+			'user' => $user
 		]);
 	}
 
 	public function edit(Request $request, $id)
 	{
-		$user = User::findOrFail(Auth::user()->id);
+		$user = User::where('id', Auth::user()->id)->with('profile')->firstOrFail();
 
 		if ($id !== (string)$user->id) {
 			return redirect()->back();
 		}
 
-		$userProfile = $user->profile;
-
 		return view('layouts.secondary', [
 			'page' => 'pages.user-edit',
 			'title' => 'Laravel-blog | Редактировать профиль',
-			'user' => $user,
-			'userProfile' => $userProfile
+			'user' => $user
 		]);
 	}
 

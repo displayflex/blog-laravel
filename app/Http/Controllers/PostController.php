@@ -16,36 +16,28 @@ class PostController extends Controller
 {
 	public function index(Request $request)
 	{
-		$posts = Post::all()->sortByDesc('updated_at');
-
-		if (Auth::check()) {
-			$postsByUser = $posts->where('user_id', Auth::user()->id);
-		}
+		$posts = Post::with(['tags', 'user'])
+			->get()
+			->sortByDesc('updated_at');
 
 		return view('layouts.primary', [
 			'page' => 'pages.index',
 			'title' => 'Laravel-blog',
-			'posts' => $posts ?? [],
-			'postsByUser' => $postsByUser ?? null
+			'posts' => $posts ?? []
 		]);
 	}
 
 	public function post(Request $request, $id)
 	{
-		$post = Post::findOrFail($id);
+		$post = Post::where('id', $id)->with(['user', 'tags'])->firstOrFail();
 
 		$post->views_count += 1;
 		$post->save();
 
-		if (Auth::check()) {
-			$isPostByUser = Auth::user()->posts->where('id', $post->id)->first() ? true : false;
-		}
-
 		return view('layouts.primary', [
 			'page' => 'pages.post',
 			'title' => 'Laravel-blog | Просмотр поста',
-			'post' => $post,
-			'isPostByUser' => $isPostByUser ?? false
+			'post' => $post
 		]);
 	}
 
@@ -134,5 +126,3 @@ class PostController extends Controller
 		]);
 	}
 }
-
-// TODO: make admin (using gate and admin-controllers?)

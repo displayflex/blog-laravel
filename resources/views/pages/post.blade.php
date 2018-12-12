@@ -1,5 +1,5 @@
 <article class="single-post">
-	<h2>{{ nl2br($post->title) }}</h2>
+	<h2>{{ $post->title }}</h2>
 	<ul class="tags">
 		@foreach ($post->tags as $tag)
 			@if ($tag->name)
@@ -9,7 +9,7 @@
 			@endif
 		@endforeach
 	</ul>
-	<small>{{ nl2br(getRusDate($post->updated_at)) }}</small>
+	<small>{{ getRusDate($post->updated_at) }}</small>
 	<p class="single-post__author">
 		@can('view', App\Models\Profile::class)
 			Автор: <a class="single-post__author-link" href="/user/{{ $post->user->id }}">{{ $post->user->login }}</a>
@@ -26,14 +26,14 @@
 		<i class="fa fa-eye"></i> {{ $post->views_count }}
 	</span>
 	@can('update', App\Models\Post::class)
-		@if ($isPostByUser)
+		@if ($post->user->id === Auth::user()->id)
 			<a class="single-post__change single-post__change--edit" href="/post/edit/{{ $post->id }}">
 				<i class="fa fa-pencil"></i>
 			</a>
 		@endif
 	@endcan
 	@can('delete', App\Models\Post::class)
-		@if ($isPostByUser)
+		@if ($post->user->id === Auth::user()->id)
 			<a class="single-post__change single-post__change--delete" href="/post/delete/{{ $post->id }}" onclick="return confirm('Удалить статью?')">
 				<i class="fa fa-times"></i>
 			</a>
@@ -41,5 +41,3 @@
 	@endcan
 	<a class="single-post__back" href="/"><i class="fa fa-arrow-left"></i> На главную</a>
 </article>
-
-{{-- TODO: убрать подключение к БД? (в 2 местах) --}}
