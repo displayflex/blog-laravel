@@ -2617,14 +2617,18 @@ ol.default li {
 	width: 70%;
 }
 
-.post-form .form-item label {
+.post-form .form-item label,
+.feedback-form .form-item label {
 	width: 20%;
 }
 
 .post-form .form-item input[type="text"],
 .post-form .form-item input[type="email"],
 .post-form .form-item input[type="password"],
-.post-form .form-item textarea {
+.post-form .form-item textarea,
+.feedback-form .form-item input[type="text"],
+.feedback-form .form-item input[type="email"],
+.feedback-form .form-item textarea {
 	width: 80%;
 }
 
@@ -2779,4 +2783,8 @@ input[type=date]::-webkit-inner-spin-button {
 .single-post__change--delete {
 	color: rgb(219, 90, 90);
 	right: 20px;
+}
+
+.feedback-message {
+	font-size: 125%;
 }

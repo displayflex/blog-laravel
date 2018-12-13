@@ -65,3 +65,8 @@ Route::group(['prefix' => 'user'], function () {
 		->name('site.user.editPost')
 		->middleware('can:update,App\Models\Profile');
 });
+
+Route::get('/feedback', 'FeedbackController@feedback')
+	->name('site.feedback.feedback');
+Route::post('/feedback', 'FeedbackController@feedbackPost')
+	->name('site.feedback.feedbackPost'); // TODO: права доступа

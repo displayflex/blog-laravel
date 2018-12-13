@@ -12,7 +12,12 @@
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li><a href="/">Home</a></li>
+									<li @if(Route::currentRouteName() == 'site.post.index') class="current_page_item" @endif>
+										<a href="/">Главная</a>
+									</li>
+									<li @if(Route::currentRouteName() == 'site.feedback.feedback') class="current_page_item" @endif>
+										<a href="/feedback">Написать мне</a>
+									</li>
 									<li>
 										<a href="#">Dropdown</a>
 										<ul>
@@ -30,8 +35,7 @@
 											<li><a href="#">Veroeros feugiat</a></li>
 										</ul>
 									</li>
-									<li class="current_page_item"><a href="#">Right Sidebar</a></li>
-									<li><a href="#">Left Sidebar</a></li>
+									<li><a href="#">Right Sidebar</a></li>
 								</ul>
 							</nav>
 
