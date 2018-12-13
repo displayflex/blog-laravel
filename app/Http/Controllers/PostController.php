@@ -10,15 +10,18 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Tag;
 use App\Repositories\TagHandleRepository;
+use Illuminate\Support\Facades\Cache;
 
 
 class PostController extends Controller
 {
 	public function index()
 	{
-		$posts = Post::with(['tags', 'user'])
-			->get()
-			->sortByDesc('updated_at');
+		$posts = Cache::remember('mainPosts', env('CACHE_TIME', 0), function () {
+			return Post::with(['tags', 'user'])
+				->get()
+				->sortByDesc('updated_at');
+		});
 
 		return view('layouts.primary', [
 			'page' => 'pages.index',
@@ -30,7 +33,6 @@ class PostController extends Controller
 	public function post($id)
 	{
 		$post = Post::where('id', $id)->with(['user', 'tags'])->firstOrFail();
-
 		$post->views_count += 1;
 		$post->save();
 
@@ -67,6 +69,8 @@ class PostController extends Controller
 		 */
 		$post->tags()->sync($tagsIds);
 
+		Cache::forget('mainPosts');
+
 		return redirect()->route('site.post.post', $post->id);
 	}
 
@@ -97,6 +101,8 @@ class PostController extends Controller
 		$post->content = $request->input('content');
 		$post->save();
 
+		Cache::forget('mainPosts');
+
 		return redirect()->route('site.post.post', $post->id);
 	}
 
@@ -109,6 +115,8 @@ class PostController extends Controller
 		}
 
 		$post->delete();
+
+		Cache::forget('mainPosts');
 
 		return redirect()->route('site.post.index');
 	}
