@@ -4,7 +4,7 @@
 		@foreach ($post->tags as $tag)
 			@if ($tag->name)
 				<li class="tags__item">
-					<a class="tags__link" href="/post/tag/{{ $tag->id }}">{{ $tag->name }}</a>
+					<a class="tags__link" href="{{ route('site.post.tag', $tag->id) }}">{{ $tag->name }}</a>
 				</li>
 			@endif
 		@endforeach
@@ -12,7 +12,7 @@
 	<small>{{ getRusDate($post->updated_at) }}</small>
 	<p class="single-post__author">
 		@can('view', App\Models\Profile::class)
-			Автор: <a class="single-post__author-link" href="/user/{{ $post->user->id }}">{{ $post->user->login }}</a>
+			Автор: <a class="single-post__author-link" href="{{ route('site.user.profile', $post->user->id) }}">{{ $post->user->login }}</a>
 		@else
 			Автор: {{ $post->user->login }}
 		@endcan
@@ -27,17 +27,17 @@
 	</span>
 	@can('update', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--edit" href="/post/edit/{{ $post->id }}">
+			<a class="single-post__change single-post__change--edit" href="{{ route('site.post.edit', $post->id) }}">
 				<i class="fa fa-pencil"></i>
 			</a>
 		@endif
 	@endcan
 	@can('delete', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--delete" href="/post/delete/{{ $post->id }}" onclick="return confirm('Удалить статью?')">
+			<a class="single-post__change single-post__change--delete" href="{{ route('site.post.delete', $post->id) }}" onclick="return confirm('Удалить статью?')">
 				<i class="fa fa-times"></i>
 			</a>
 		@endif
 	@endcan
-	<a class="single-post__back" href="/"><i class="fa fa-arrow-left"></i> На главную</a>
+	<a class="single-post__back" href="{{ route('site.post.index') }}"><i class="fa fa-arrow-left"></i> На главную</a>
 </article>

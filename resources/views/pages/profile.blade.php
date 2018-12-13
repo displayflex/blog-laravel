@@ -31,6 +31,6 @@
 
 @can('update', App\Models\Profile::class)
 	@if ($user->id === Auth::user()->id)
-		<a class="button alt icon fa-pencil-square-o" href="/user/{{ $user->id }}/edit">Редктировать профиль</a>
+		<a class="button alt icon fa-pencil-square-o" href="{{ route('site.user.edit', $user->id) }}">Редктировать профиль</a>
 	@endif
 @endcan

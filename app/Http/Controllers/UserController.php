@@ -12,7 +12,7 @@ use App\Http\Requests\UserEditRequest;
 
 class UserController extends Controller
 {
-	public function signUp(Request $request)
+	public function signUp()
 	{
 		Auth::logout();
 
@@ -40,12 +40,14 @@ class UserController extends Controller
 			$user->profile()->save($profile);
 		}
 
+		$user->roles()->sync([3, 2]);
+
 		Auth::loginUsingId($user->id, true);
 
 		return redirect()->route('site.post.index');
 	}
 
-	public function signIn(Request $request)
+	public function signIn()
 	{
 		Auth::logout();
 
@@ -70,14 +72,14 @@ class UserController extends Controller
 		}
 	}
 
-	public function signOut(Request $request)
+	public function signOut()
 	{
 		Auth::logout();
 
 		return redirect()->route('site.post.index');
 	}
 
-	public function profile(Request $request, $id)
+	public function profile($id)
 	{
 		$user = User::where('id', $id)->with('profile')->firstOrFail();
 
@@ -88,7 +90,7 @@ class UserController extends Controller
 		]);
 	}
 
-	public function edit(Request $request, $id)
+	public function edit($id)
 	{
 		$user = User::where('id', Auth::user()->id)->with('profile')->firstOrFail();
 

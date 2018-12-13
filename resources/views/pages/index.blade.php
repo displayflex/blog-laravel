@@ -7,7 +7,7 @@
 @forelse ($posts as $post)
 	<article class="box excerpt post">
 		<div class="post__image-wrapper">
-			<a href="post/{{ $post->id }}" class="image left">
+			<a href="{{ route('site.post.post', $post->id) }}" class="image left">
 				{{-- <img src="/assets/images/pic0{{ mt_rand(4,6) }}.jpg" alt=""> --}}
 				<img src="{{ $post->image }}" alt="">
 			</a>
@@ -19,16 +19,16 @@
 					@foreach ($post->tags as $tag)
 						@if ($tag->name)
 							<li class="tags__item">
-								<a class="tags__link" href="/post/tag/{{ $tag->id }}">{{ $tag->name }}</a>
+								<a class="tags__link" href="{{ route('site.post.tag', $tag->id) }}">{{ $tag->name }}</a>
 							</li>
 						@endif
 					@endforeach
 				</ul>
-				<h3><a href="post/{{ $post->id }}">{{ $post->title }}</a></h3>
+				<h3><a href="{{ route('site.post.post', $post->id) }}">{{ $post->title }}</a></h3>
 					<div class="post__about-wrapper">
 						<p class="post__author">
 							@can('view', App\Models\Profile::class)
-								Автор: <a class="post__author-link" href="/user/{{ $post->user->id }}">{{ $post->user->login }}</a>
+								Автор: <a class="post__author-link" href="{{ route('site.user.profile', $post->user->id) }}">{{ $post->user->login }}</a>
 							@else
 								Автор: {{ $post->user->login }}
 							@endcan
@@ -47,14 +47,14 @@
 			</p>
 			@can('update', App\Models\Post::class)
 				@if ($post->user->id === Auth::user()->id)
-					<a class="post__change post__change--edit" href="/post/edit/{{ $post->id }}">
+					<a class="post__change post__change--edit" href="{{ route('site.post.edit', $post->id) }}">
 						<i class="fa fa-pencil"></i>
 					</a>
 				@endif
 			@endcan
 			@can('delete', App\Models\Post::class)
 				@if ($post->user->id === Auth::user()->id)
-					<a class="post__change post__change--delete" href="/post/delete/{{ $post->id }}" onclick="return confirm('Удалить статью?')">
+					<a class="post__change post__change--delete" href="{{ route('site.post.delete', $post->id) }}" onclick="return confirm('Удалить статью?')">
 						<i class="fa fa-times"></i>
 					</a>
 				@endif
@@ -66,5 +66,5 @@
 @endforelse
 
 @can('create', App\Models\Post::class)
-	<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
+	<a class="button alt icon fa-file-o" href="{{ route('site.post.add') }}">Добавить</a>
 @endcan

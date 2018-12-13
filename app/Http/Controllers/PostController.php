@@ -14,7 +14,7 @@ use App\Repositories\TagHandleRepository;
 
 class PostController extends Controller
 {
-	public function index(Request $request)
+	public function index()
 	{
 		$posts = Post::with(['tags', 'user'])
 			->get()
@@ -27,7 +27,7 @@ class PostController extends Controller
 		]);
 	}
 
-	public function post(Request $request, $id)
+	public function post($id)
 	{
 		$post = Post::where('id', $id)->with(['user', 'tags'])->firstOrFail();
 
@@ -41,7 +41,7 @@ class PostController extends Controller
 		]);
 	}
 
-	public function add(Request $request)
+	public function add()
 	{
 		return view('layouts.secondary', [
 			'page' => 'pages.post-add',
@@ -70,7 +70,7 @@ class PostController extends Controller
 		return redirect()->route('site.post.post', $post->id);
 	}
 
-	public function edit(Request $request, $id)
+	public function edit($id)
 	{
 		$post = Post::findOrFail($id);
 
@@ -100,7 +100,7 @@ class PostController extends Controller
 		return redirect()->route('site.post.post', $post->id);
 	}
 
-	public function delete(Request $request, $id)
+	public function delete($id)
 	{
 		$post = Post::findOrFail($id);
 
@@ -113,7 +113,7 @@ class PostController extends Controller
 		return redirect()->route('site.post.index');
 	}
 
-	public function tag(Request $request, $id)
+	public function tag($id)
 	{
 		$tag = Tag::findOrFail($id);
 		$posts = $tag->posts->sortByDesc('updated_at');
@@ -126,5 +126,3 @@ class PostController extends Controller
 		]);
 	}
 }
-
-// TODO: удалить request где не нужен
