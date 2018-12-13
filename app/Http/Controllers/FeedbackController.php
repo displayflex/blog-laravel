@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\FeedbackRequest;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\View;
-use App\Mail\FeedbackMail;
+// use Illuminate\Support\Facades\Mail;
+// use App\Mail\FeedbackMail;
+use App\Events\FeedbackWasCreated;
 
 class FeedbackController extends Controller
 {
@@ -20,8 +20,13 @@ class FeedbackController extends Controller
 
 	public function feedbackPost(FeedbackRequest $request)
 	{
-		Mail::to('3ton2004@mail.ru')
-			->send(new FeedbackMail($request->all()));
+		/**
+		 * Send email without events and listeners
+		 */
+		// Mail::to('3ton2004@mail.ru')
+		// 	->send(new FeedbackMail($request->all()));
+
+		event(new FeedbackWasCreated($request->all()));
 
 		return view('layouts.secondary', [
 			'page' => 'parts.feedback-success',

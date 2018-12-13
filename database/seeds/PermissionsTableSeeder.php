@@ -43,5 +43,9 @@ class PermissionsTableSeeder extends Seeder
 		Permission::create([
 			'name' => 'can_view_all_profiles'
 		]);
+
+		Permission::create([
+			'name' => 'can_view_feedback_page'
+		]);
 	}
 }

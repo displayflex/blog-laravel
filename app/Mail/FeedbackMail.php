@@ -33,7 +33,7 @@ class FeedbackMail extends Mailable
 		return $this->view('emails.feedback-template')
 			->from('no-reply@followthewhiterabbit.com')
 			->with(['data' => $this->data])
-			->subject('Письмо с блога')
+			->subject('Письмо с блога');
 			// ->attach('../readme.md');
 	}
 }

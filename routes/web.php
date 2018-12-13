@@ -67,6 +67,8 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::get('/feedback', 'FeedbackController@feedback')
-	->name('site.feedback.feedback');
+	->name('site.feedback.feedback')
+	->middleware('can:view,App\Models\Feedback');
 Route::post('/feedback', 'FeedbackController@feedbackPost')
-	->name('site.feedback.feedbackPost'); // TODO: права доступа
+	->name('site.feedback.feedbackPost')
+	->middleware('can:view,App\Models\Feedback');

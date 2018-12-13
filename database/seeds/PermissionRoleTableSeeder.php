@@ -23,6 +23,7 @@ class PermissionRoleTableSeeder extends Seeder
 		Role::find(1)->permissions()->attach([6]);
 		Role::find(1)->permissions()->attach([7]);
 		Role::find(1)->permissions()->attach([8]);
+		Role::find(1)->permissions()->attach([9]);
 
 		/**
 		 * Editor
@@ -32,10 +33,12 @@ class PermissionRoleTableSeeder extends Seeder
 		Role::find(2)->permissions()->attach([3]);
 		Role::find(2)->permissions()->attach([4]);
 		Role::find(2)->permissions()->attach([8]);
+		Role::find(2)->permissions()->attach([9]);
 
 		/**
 		 * User
 		 */
 		Role::find(3)->permissions()->attach([8]);
+		Role::find(3)->permissions()->attach([9]);
 	}
 }

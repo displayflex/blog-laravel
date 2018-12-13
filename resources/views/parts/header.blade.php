@@ -15,9 +15,11 @@
 									<li @if(Route::currentRouteName() == 'site.post.index') class="current_page_item" @endif>
 										<a href="/">Главная</a>
 									</li>
-									<li @if(Route::currentRouteName() == 'site.feedback.feedback') class="current_page_item" @endif>
-										<a href="/feedback">Написать мне</a>
-									</li>
+									@can('view', App\Models\Feedback::class)
+										<li @if(Route::currentRouteName() == 'site.feedback.feedback') class="current_page_item" @endif>
+											<a href="/feedback">Написать мне</a>
+										</li>
+									@endcan
 									<li>
 										<a href="#">Dropdown</a>
 										<ul>
