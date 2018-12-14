@@ -2788,3 +2788,15 @@ input[type=date]::-webkit-inner-spin-button {
 .feedback-message {
 	font-size: 125%;
 }
+
+.feedback-header {
+	margin-bottom: 25px;
+}
+
+.feedback-description {
+	font-size: 115%;
+}
+
+.alert-danger--ajax {
+	display: none;
+}
