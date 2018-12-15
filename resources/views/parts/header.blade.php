@@ -7,17 +7,17 @@
 					<div class="inner">
 
 						<!-- Logo -->
-							<h1><a href="{{ route('site.post.index') }}" id="logo">Laravel Блог</a></h1>
+							<h1><a href="{{ route('site.main.index') }}" id="logo">Laravel Блог</a></h1>
 
 						<!-- Nav -->
 							<nav id="nav">
 								<ul>
-									<li @if(Route::currentRouteName() == 'site.post.index') class="current_page_item" @endif>
-										<a href="{{ route('site.post.index') }}">Главная</a>
+									<li @if(Route::currentRouteName() == 'site.main.index') class="current_page_item" @endif>
+										<a href="{{ route('site.main.index') }}">Главная</a>
 									</li>
 									@can('view', App\Models\Feedback::class)
-										<li @if(Route::currentRouteName() == 'site.feedback.feedback') class="current_page_item" @endif>
-											<a href="{{ route('site.feedback.feedback') }}">Написать мне</a>
+										<li @if(Route::currentRouteName() == 'site.main.feedback') class="current_page_item" @endif>
+											<a href="{{ route('site.main.feedback') }}">Написать мне</a>
 										</li>
 									@endcan
 									<li>

@@ -3,13 +3,26 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Http\Requests\FeedbackRequest;
-// use Illuminate\Support\Facades\Mail;
-// use App\Mail\FeedbackMail;
-use App\Events\FeedbackWasCreated;
+use Illuminate\Support\Facades\Cache;
+use App\Models\Post;
 
-class FeedbackController extends Controller
+class MainController extends Controller
 {
+	public function index()
+	{
+		$posts = Cache::remember('mainPosts', env('CACHE_TIME', 0), function () {
+			return Post::with(['tags', 'user'])
+				->get()
+				->sortByDesc('updated_at');
+		});
+
+		return view('layouts.primary', [
+			'page' => 'pages.index',
+			'title' => 'Laravel-blog',
+			'posts' => $posts ?? []
+		]);
+	}
+
 	public function feedback()
 	{
 		return view('layouts.secondary', [

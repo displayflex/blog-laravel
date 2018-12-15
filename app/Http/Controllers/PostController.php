@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Interfaces\CounterInterface;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
@@ -12,24 +11,8 @@ use App\Models\Tag;
 use App\Repositories\TagHandleRepository;
 use Illuminate\Support\Facades\Cache;
 
-
 class PostController extends Controller
 {
-	public function index()
-	{
-		$posts = Cache::remember('mainPosts', env('CACHE_TIME', 0), function () {
-			return Post::with(['tags', 'user'])
-				->get()
-				->sortByDesc('updated_at');
-		});
-
-		return view('layouts.primary', [
-			'page' => 'pages.index',
-			'title' => 'Laravel-blog',
-			'posts' => $posts ?? []
-		]);
-	}
-
 	public function post($id)
 	{
 		$post = Post::where('id', $id)->with(['user', 'tags'])->firstOrFail();
@@ -118,7 +101,7 @@ class PostController extends Controller
 
 		Cache::forget('mainPosts');
 
-		return redirect()->route('site.post.index');
+		return redirect()->route('site.main.index');
 	}
 
 	public function tag($id)

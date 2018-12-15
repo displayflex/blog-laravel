@@ -11,8 +11,8 @@
 |
  */
 
-Route::get('/', 'PostController@index')
-	->name('site.post.index');
+Route::get('/', 'MainController@index')
+	->name('site.main.index');
 
 Route::group(['prefix' => 'post'], function () {
 	Route::get('/{id}', 'PostController@post')
@@ -66,13 +66,13 @@ Route::group(['prefix' => 'user'], function () {
 		->middleware('can:update,App\Models\Profile');
 });
 
-// Route::get('/feedback', 'FeedbackController@feedback')
-// 	->name('site.feedback.feedback')
+// Route::get('/feedback', 'MainController@feedback')
+// 	->name('site.main.feedback')
 // 	->middleware('can:view,App\Models\Feedback');
-// Route::post('/feedback', 'FeedbackController@feedbackPost')
-// 	->name('site.feedback.feedbackPost')
+// Route::post('/feedback', 'MainController@feedbackPost')
+// 	->name('site.main.feedbackPost')
 // 	->middleware('can:view,App\Models\Feedback');
 
-Route::match(['get', 'post'], '/feedback', 'FeedbackController@feedback')
-	->name('site.feedback.feedback')
+Route::match(['get', 'post'], '/feedback', 'MainController@feedback')
+	->name('site.main.feedback')
 	->middleware('can:view,App\Models\Feedback');

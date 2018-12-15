@@ -44,7 +44,7 @@ class UserController extends Controller
 
 		Auth::loginUsingId($user->id, true);
 
-		return redirect()->route('site.post.index');
+		return redirect()->route('site.main.index');
 	}
 
 	public function signIn()
@@ -76,7 +76,7 @@ class UserController extends Controller
 	{
 		Auth::logout();
 
-		return redirect()->route('site.post.index');
+		return redirect()->route('site.main.index');
 	}
 
 	public function profile($id)

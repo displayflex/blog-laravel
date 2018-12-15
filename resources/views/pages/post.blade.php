@@ -39,5 +39,5 @@
 			</a>
 		@endif
 	@endcan
-	<a class="single-post__back" href="{{ route('site.post.index') }}"><i class="fa fa-arrow-left"></i> На главную</a>
+	<a class="single-post__back" href="{{ route('site.main.index') }}"><i class="fa fa-arrow-left"></i> На главную</a>
 </article>
