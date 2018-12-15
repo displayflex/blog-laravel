@@ -1,5 +1,5 @@
 <article class="single-post">
-	<h2>{{ $post->title }}</h2>
+	<h2 class="single-post__title">{{ $post->title }}</h2>
 	<ul class="tags">
 		@foreach ($post->tags as $tag)
 			@if ($tag->name)

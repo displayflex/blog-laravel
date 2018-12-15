@@ -40,7 +40,8 @@
 			</header>
 			<p class="post__announce">
 				@if (mb_strlen($post->content) >= 200)
-					{{ mb_substr($post->content, 0, 200) . ' ...' }}
+					{{ mb_substr($post->content, 0, 200) }}
+					<a class="post__read-more" href="{{ route('site.post.post', $post->id) }}"> ...</a>
 				@else
 					{{ $post->content }}
 				@endif

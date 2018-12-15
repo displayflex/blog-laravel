@@ -2570,7 +2570,9 @@ ol.default li {
 }
 
 .user-menu {
-	margin-bottom: 65px;
+	padding-bottom: 55px;
+	margin-bottom: 35px;
+	border-bottom: 1px solid #e6e6e6;
 }
 
 .input-error~div {
@@ -2709,6 +2711,10 @@ input[type=date]::-webkit-inner-spin-button {
 	position: relative;
 }
 
+.single-post__title {
+	padding-right: 100px;
+}
+
 .single-post__image-wrapper {
 	height: 167px;
 	max-width: 180px;
@@ -2799,4 +2805,29 @@ input[type=date]::-webkit-inner-spin-button {
 
 .alert-danger--ajax {
 	display: none;
+}
+
+/* popular-post */
+.popular-post__main-title {
+	font-size: 1.5em;
+	margin-bottom: 30px;
+}
+
+.popular-post__image-link {
+	display: block;
+	height: 167px;
+	overflow: hidden;
+	border-radius: 8px;
+	margin-bottom: 25px;
+}
+
+.popular-post__image {
+	width: 100%;
+	height: auto;
+}
+
+.popular-post__title {
+	font-size: 1.35em;
+	margin-bottom: 15px;
+	margin-top: 0;
 }

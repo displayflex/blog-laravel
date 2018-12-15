@@ -85,6 +85,7 @@ class PostController extends Controller
 		$post->save();
 
 		Cache::forget('mainPosts');
+		Cache::forget('popularPost');
 
 		return redirect()->route('site.post.post', $post->id);
 	}
@@ -100,6 +101,7 @@ class PostController extends Controller
 		$post->delete();
 
 		Cache::forget('mainPosts');
+		Cache::forget('popularPost');
 
 		return redirect()->route('site.main.index');
 	}

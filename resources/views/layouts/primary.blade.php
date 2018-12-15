@@ -6,5 +6,5 @@
 
 @section('right-column')
 	@include('parts.widgets.user-menu')
-	@include('parts.widgets.spotlight')
+	@include('parts.widgets.featured-post')
 @endsection
