@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Post;
+use App\Models\Tag;
 
 class Controller extends BaseController
 {
@@ -22,8 +23,18 @@ class Controller extends BaseController
 	public function renderSharedViews()
 	{
 		View::share('popularPost', Cache::remember('popularPost', env('CACHE_TIME', 0), function () {
-			return view('parts.widgets.shared.popular-post', [
+			return view('parts.widgets.shared.shared-popular-post', [
 				'post' => Post::orderBy('views_count', 'DESC')->first()
+			])->render();
+		}));
+
+		View::share('tags', Cache::remember('tags', env('CACHE_TIME', 0), function () {
+			return view('parts.widgets.shared.shared-tags', [
+				'tags' => Tag::withCount('posts')
+					->has('posts')
+					->orderBy('posts_count', 'DESC')
+					->take(8)
+					->get()
 			])->render();
 		}));
 	}

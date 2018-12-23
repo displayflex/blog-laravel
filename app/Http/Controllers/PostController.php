@@ -53,6 +53,7 @@ class PostController extends Controller
 		$post->tags()->sync($tagsIds);
 
 		Cache::forget('mainPosts');
+		Cache::forget('tags');
 
 		return redirect()->route('site.post.post', $post->id);
 	}
@@ -86,6 +87,7 @@ class PostController extends Controller
 
 		Cache::forget('mainPosts');
 		Cache::forget('popularPost');
+		Cache::forget('tags');
 
 		return redirect()->route('site.post.post', $post->id);
 	}
@@ -102,20 +104,8 @@ class PostController extends Controller
 
 		Cache::forget('mainPosts');
 		Cache::forget('popularPost');
+		Cache::forget('tags');
 
 		return redirect()->route('site.main.index');
-	}
-
-	public function tag($id)
-	{
-		$tag = Tag::findOrFail($id);
-		$posts = $tag->posts->sortByDesc('updated_at');
-
-		return view('layouts.primary', [
-			'page' => 'pages.index',
-			'title' => 'Laravel-blog',
-			'tagName' => $tag->name,
-			'posts' => $posts ?? []
-		]);
 	}
 }

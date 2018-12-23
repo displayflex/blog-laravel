@@ -36,9 +36,6 @@ Route::group(['prefix' => 'post'], function () {
 		->where('id', '[0-9]+')
 		->name('site.post.delete')
 		->middleware('can:delete,App\Models\Post');
-	Route::get('/tag/{id}', 'PostController@tag')
-		->where('id', '[0-9]+')
-		->name('site.post.tag');
 });
 
 Route::group(['prefix' => 'user'], function () {
@@ -64,6 +61,15 @@ Route::group(['prefix' => 'user'], function () {
 		->where('id', '[0-9]+')
 		->name('site.user.editPost')
 		->middleware('can:update,App\Models\Profile');
+});
+
+Route::group(['prefix' => 'tag'], function () {
+	Route::get('/{id}', 'TagController@tag')
+		->where('id', '[0-9]+')
+		->name('site.tag.tag');
+	Route::get('/all', 'TagController@all')
+		->where('id', '[0-9]+')
+		->name('site.tag.all');
 });
 
 // Route::get('/feedback', 'MainController@feedback')

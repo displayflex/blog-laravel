@@ -13,12 +13,18 @@
 		</h3>
 		<p class="popular-post__content">
 			@if (mb_strlen($post->content) >= 200)
-				{{ mb_substr($post->content, 0, 200) }}
-				<a class="popular-post__read-more" href="{{ route('site.post.post', $post->id) }}"> ...</a>
+				{{ mb_substr($post->content, 0, 200) }}<span> ...</span>
 			@else
 				{{ $post->content }}
 			@endif
 		</p>
 	</article>
+		@if (mb_strlen($post->content) >= 200)
+			<p class="popular-post__more">
+				<a class="popular-post__more-link" href="{{ route('site.post.post', $post->id) }}">
+					Прочитать пост полностью <span class="icon fa-angle-right"></span>
+				</a>
+			</p>
+		@endif
 </section><!-- /popular-post -->
 @endif

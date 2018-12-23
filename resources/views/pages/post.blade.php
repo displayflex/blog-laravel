@@ -4,7 +4,7 @@
 		@foreach ($post->tags as $tag)
 			@if ($tag->name)
 				<li class="tags__item">
-					<a class="tags__link" href="{{ route('site.post.tag', $tag->id) }}">{{ $tag->name }}</a>
+					<a class="tags__link" href="{{ route('site.tag.tag', $tag->id) }}">{{ $tag->name }}</a>
 				</li>
 			@endif
 		@endforeach
