@@ -4,7 +4,7 @@
 		@foreach ($post->tags as $tag)
 			@if ($tag->name)
 				<li class="tags__item">
-					<a class="tags__link" href="{{ route('site.tag.tag', $tag->id) }}">{{ $tag->name }}</a>
+					<a class="tags__link" href="{{ route('site.tag.tag', $tag->slug) }}">{{ $tag->name }}</a>
 				</li>
 			@endif
 		@endforeach
@@ -27,14 +27,14 @@
 	</span>
 	@can('update', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--edit" href="{{ route('site.post.edit', $post->id) }}">
+			<a class="single-post__change single-post__change--edit" href="{{ route('site.post.edit', $post->slug) }}">
 				<i class="fa fa-pencil"></i>
 			</a>
 		@endif
 	@endcan
 	@can('delete', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--delete" href="{{ route('site.post.delete', $post->id) }}" onclick="return confirm('Удалить статью?')">
+			<a class="single-post__change single-post__change--delete" href="{{ route('site.post.delete', $post->slug) }}" onclick="return confirm('Удалить статью?')">
 				<i class="fa fa-times"></i>
 			</a>
 		@endif

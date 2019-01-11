@@ -10,9 +10,7 @@
 	</div>
 	<div class="form-item">
 		<label for="feedback-form__message">Текст сообщения <span>*</span></label>
-		<textarea name="message" id="feedback-form__message" placeholder="Введите Ваше сообщение">
-			{{ old('message') }}
-		</textarea>
+		<textarea name="message" id="feedback-form__message" placeholder="Введите Ваше сообщение">{{ old('message') }}</textarea>
 	</div>
 	<div class="form-item">
 		<input type="submit" value="Отправить сообщение">

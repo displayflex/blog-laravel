@@ -5,7 +5,7 @@
 	<ul class="tags-widget__list">
 		@foreach ($tags as $tag)
 			<li class="tags-widget__item">
-				<a href="{{ route('site.tag.tag', $tag->id) }}" class="tags-widget__link">{{ $tag->name }}</a>
+				<a href="{{ route('site.tag.tag', $tag->slug) }}" class="tags-widget__link">{{ $tag->name }}</a>
 			</li>
 		@endforeach
 	</ul>

@@ -1,4 +1,4 @@
-<form method="POST" class="form post-form" action="{{ route('site.post.editPost', $post->id) }}">
+<form method="POST" class="form post-form" action="{{ route('site.post.editPost', $post->slug) }}">
 	{{ csrf_field() }}
 	<div class="form-item">
 		<label for="post-form__title">Заголовок <span>*</span></label>

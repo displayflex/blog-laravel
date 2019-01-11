@@ -7,9 +7,9 @@ use App\Models\Tag;
 
 class TagController extends Controller
 {
-	public function tag($id)
+	public function tag($slug)
 	{
-		$tag = Tag::findOrFail($id);
+		$tag = Tag::where('slug', $slug)->firstOrFail();
 		$posts = $tag->posts->sortByDesc('updated_at');
 
 		return view('layouts.primary', [

@@ -15,27 +15,23 @@ Route::get('/', 'MainController@index')
 	->name('site.main.index');
 
 Route::group(['prefix' => 'post'], function () {
-	Route::get('/{id}', 'PostController@post')
-		->where('id', '[0-9]+')
-		->name('site.post.post');
 	Route::get('/add', 'PostController@add')
 		->name('site.post.add')
 		->middleware('can:create,App\Models\Post');
 	Route::post('/add', 'PostController@addPost')
 		->name('site.post.addPost')
 		->middleware('can:create,App\Models\Post');
-	Route::get('/edit/{id}', 'PostController@edit')
-		->where('id', '[0-9]+')
+	Route::get('/edit/{slug}', 'PostController@edit')
 		->name('site.post.edit')
 		->middleware('can:update,App\Models\Post');
-	Route::post('/edit/{id}', 'PostController@editPost')
-		->where('id', '[0-9]+')
+	Route::post('/edit/{slug}', 'PostController@editPost')
 		->name('site.post.editPost')
 		->middleware('can:update,App\Models\Post');
-	Route::get('/delete/{id}', 'PostController@delete')
-		->where('id', '[0-9]+')
+	Route::get('/delete/{slug}', 'PostController@delete')
 		->name('site.post.delete')
 		->middleware('can:delete,App\Models\Post');
+	Route::get('/{slug}', 'PostController@post')
+		->name('site.post.post');
 });
 
 Route::group(['prefix' => 'user'], function () {
@@ -64,12 +60,10 @@ Route::group(['prefix' => 'user'], function () {
 });
 
 Route::group(['prefix' => 'tag'], function () {
-	Route::get('/{id}', 'TagController@tag')
-		->where('id', '[0-9]+')
-		->name('site.tag.tag');
 	Route::get('/all', 'TagController@all')
-		->where('id', '[0-9]+')
 		->name('site.tag.all');
+	Route::get('/{slug}', 'TagController@tag')
+		->name('site.tag.tag');
 });
 
 // Route::get('/feedback', 'MainController@feedback')

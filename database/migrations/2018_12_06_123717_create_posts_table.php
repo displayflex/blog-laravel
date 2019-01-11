@@ -24,6 +24,7 @@ class CreatePostsTable extends Migration
 				->onUpdate('cascade');
 
 			$table->string('title', 64);
+			$table->string('slug', 64);
 			$table->string('image', 255)->nullable();
 			$table->text('content');
 			$table->integer('views_count')->nullable()->default(0);

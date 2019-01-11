@@ -13,9 +13,9 @@ use Illuminate\Support\Facades\Cache;
 
 class PostController extends Controller
 {
-	public function post($id)
+	public function post($slug)
 	{
-		$post = Post::where('id', $id)->with(['user', 'tags'])->firstOrFail();
+		$post = Post::where('slug', $slug)->with(['user', 'tags'])->firstOrFail();
 		$post->views_count += 1;
 		$post->save();
 
@@ -55,12 +55,12 @@ class PostController extends Controller
 		Cache::forget('mainPosts');
 		Cache::forget('tags');
 
-		return redirect()->route('site.post.post', $post->id);
+		return redirect()->route('site.post.post', $post->slug);
 	}
 
-	public function edit($id)
+	public function edit($slug)
 	{
-		$post = Post::findOrFail($id);
+		$post = Post::where('slug', $slug)->firstOrFail();
 
 		if ($post->user->id !== Auth::user()->id) {
 			return redirect()->back();
@@ -73,9 +73,9 @@ class PostController extends Controller
 		]);
 	}
 
-	public function editPost(PostRequest $request, $id)
+	public function editPost(PostRequest $request, $slug)
 	{
-		$post = Post::findOrFail($id);
+		$post = Post::where('slug', $slug)->firstOrFail();
 
 		if ($post->user->id !== Auth::user()->id) {
 			return redirect()->back();
@@ -83,18 +83,19 @@ class PostController extends Controller
 
 		$post->title = $request->input('title');
 		$post->content = $request->input('content');
+		$post->slug = null;
 		$post->save();
 
 		Cache::forget('mainPosts');
 		Cache::forget('popularPost');
 		Cache::forget('tags');
 
-		return redirect()->route('site.post.post', $post->id);
+		return redirect()->route('site.post.post', $post->slug);
 	}
 
-	public function delete($id)
+	public function delete($slug)
 	{
-		$post = Post::findOrFail($id);
+		$post = Post::where('slug', $slug)->firstOrFail();
 
 		if ($post->user->id !== Auth::user()->id) {
 			return redirect()->back();
