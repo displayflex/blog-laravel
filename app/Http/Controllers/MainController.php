@@ -12,8 +12,8 @@ class MainController extends Controller
 	{
 		$posts = Cache::remember('mainPosts', env('CACHE_TIME', 0), function () {
 			return Post::with(['tags', 'user'])
-				->get()
-				->sortByDesc('updated_at');
+				->orderBy('updated_at', 'desc')
+				->paginate(5);
 		});
 
 		return view('layouts.primary', [

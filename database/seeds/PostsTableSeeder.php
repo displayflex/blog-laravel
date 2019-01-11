@@ -14,7 +14,7 @@ class PostsTableSeeder extends Seeder
 	{
 		$faker = Faker\Factory::create('ru_RU');
 
-		for ($i = 0; $i < 10; $i++) {
+		for ($i = 0; $i < 15; $i++) {
 			Post::create([
 				'title' => $faker->realText(50),
 				'content' => $faker->realText(1024),

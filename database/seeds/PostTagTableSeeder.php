@@ -12,9 +12,9 @@ class PostTagTableSeeder extends Seeder
 	 */
 	public function run()
 	{
-		for ($i = 1; $i <= 10; $i++) {
-			for ($j = 1; $j < mt_rand(2, 5); $j++) {
-				Post::find($i)->tags()->attach([mt_rand(1, 10)]);
+		for ($i = 1; $i <= 15; $i++) {
+			for ($j = 1; $j < mt_rand(2, 6); $j++) {
+				Post::find($i)->tags()->attach([mt_rand(1, 20)]);
 			}
 		}
 	}

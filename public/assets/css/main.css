@@ -2651,7 +2651,7 @@ div.has-error input {
 }
 
 .user-menu__profile-link {
-	color: #3081af;
+	color: #468ef1;
 	text-decoration: underline;
 }
 
@@ -2921,4 +2921,70 @@ input[type=date]::-webkit-inner-spin-button {
 .tags-widget__more-link:hover,
 .tags-widget__more-link:focus {
 	color: #468ef1;
+}
+
+/* Pagination */
+.index-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.pagination {
+	display: -ms-flexbox;
+	display: flex;
+	padding-left: 0;
+	list-style: none;
+	border-radius: .25rem;
+	margin-bottom: 0;
+}
+
+.page-link {
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	color: #007bff;
+	background-color: #fff;
+	border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+	z-index: 1;
+	color: #fff;
+	background-color: #468ef1;
+	border-color: #468ef1;
+}
+
+.page-link:hover,
+.page-link:focus {
+	z-index: 2;
+	color: #0056b3;
+	text-decoration: none;
+	background-color: #e9ecef;
+	border-color: #dee2e6;
+}
+
+.page-link:not(:disabled):not(.disabled) {
+	cursor: pointer;
+}
+
+.page-item.disabled .page-link {
+	color: #6c757d;
+	pointer-events: none;
+	cursor: auto;
+	background-color: #fff;
+	border-color: #dee2e6;
+}
+
+.page-item:last-child .page-link {
+	border-top-right-radius: .25rem;
+	border-bottom-right-radius: .25rem;
+}
+
+.page-item:first-child .page-link {
+	margin-left: 0;
+	border-top-left-radius: .25rem;
+	border-bottom-left-radius: .25rem;
 }

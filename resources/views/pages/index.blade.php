@@ -66,6 +66,10 @@
 	<p>Нет постов для отображения...</p>
 @endforelse
 
-@can('create', App\Models\Post::class)
-	<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
-@endcan
+<div class="index-bottom">
+	{{ $posts->links() }}
+
+	@can('create', App\Models\Post::class)
+		<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
+	@endcan 
+</div>
