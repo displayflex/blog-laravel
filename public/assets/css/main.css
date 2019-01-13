@@ -2777,19 +2777,48 @@ input[type=date]::-webkit-inner-spin-button {
 	font-size: 22px;
 	position: absolute;
 	top: 0;
-	display: block;
-}
-
-.post__change--edit,
-.single-post__change--edit {
-	color: #3081af;
 	right: 45px;
+	display: block;
+	transition: color 0.2s ease-in-out;
+	color: #9a9a90;
 }
 
-.post__change--delete,
-.single-post__change--delete {
-	color: rgb(219, 90, 90);
+.post__change:hover,
+.single-post__change:hover,
+.post__change:focus,
+.single-post__change:focus {
+	color: #3081af;
+}
+
+.post__delete-form,
+.single-post__delete-form {
+	position: absolute;
+	top: 0;
 	right: 20px;
+}
+
+.single-post__delete-button,
+.post__delete-button {
+	transition: color 0.2s ease-in-out;
+	background: none;
+	display: inline-block;
+	border: none;
+	box-shadow: none;
+	text-shadow: none;
+	color: #9a9a90 !important;
+	text-decoration: none;
+	text-transform: none;
+	font-weight: 400;
+	font-size: 22px;
+	padding: 0;
+}
+
+.single-post__delete-button:hover,
+.single-post__delete-button:focus,
+.post__delete-button:hover,
+.post__delete-button:focus {
+	color: rgb(219, 90, 90) !important;
+	background: none;
 }
 
 .feedback-message {

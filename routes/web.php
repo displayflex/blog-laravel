@@ -27,7 +27,7 @@ Route::group(['prefix' => 'post'], function () {
 	Route::patch('/edit/{slug}', 'PostController@update')
 		->name('site.post.update')
 		->middleware('can:update,App\Models\Post');
-	Route::get('/delete/{slug}', 'PostController@destroy')
+	Route::delete('/delete/{slug}', 'PostController@destroy')
 		->name('site.post.destroy')
 		->middleware('can:destroy,App\Models\Post');
 	Route::get('/{slug}', 'PostController@show')
@@ -69,7 +69,7 @@ Route::group(['prefix' => 'tag'], function () {
 Route::group(['prefix' => 'section'], function () {
 	Route::get('/all', 'SectionController@index')
 		->name('site.section.index');
-	Route::get('/{slug}', 'SectionController@section')
+	Route::get('/{slug}', 'SectionController@show')
 		->name('site.section.show');
 });
 

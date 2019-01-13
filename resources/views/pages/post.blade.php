@@ -27,16 +27,21 @@
 	</span>
 	@can('update', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--edit" href="{{ route('site.post.edit', $post->slug) }}">
+			<a class="single-post__change" href="{{ route('site.post.edit', $post->slug) }}">
 				<i class="fa fa-pencil"></i>
 			</a>
 		@endif
 	@endcan
 	@can('destroy', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--delete" href="{{ route('site.post.destroy', $post->slug) }}" onclick="return confirm('Удалить статью?')">
-				<i class="fa fa-times"></i>
-			</a>
+			<form class="single-post__delete-form" action="{{ route('site.post.destroy', $post->slug) }}" method="POST">
+				@method('DELETE')
+				@csrf
+
+				<button class="single-post__delete-button" type="submit" onclick="return confirm('Удалить статью?')">
+					<i class="fa fa-times"></i>
+				</button>
+			</form>
 		@endif
 	@endcan
 	<a class="single-post__back" href="{{ route('site.main.index') }}"><i class="fa fa-arrow-left"></i> На главную</a>
