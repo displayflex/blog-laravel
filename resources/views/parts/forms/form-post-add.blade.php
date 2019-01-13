@@ -13,6 +13,14 @@
 		<input name="tags" type="text" placeholder="Перечислите теги через запятую" id="post-form__tags" value="{{ old('tags') }}">
 	</div>
 	<div class="form-item">
+		<label for="post-form__section">Раздел</label>
+		<select name="section" id="post-form__section">
+			@foreach ($sections as $section)
+				<option value="{{ $section->name }}">{{ $section->name }}</option>
+			@endforeach
+		</select>
+	</div>
+	<div class="form-item">
 		<input type="submit" value="Добавить пост">
 	</div>
 </form>

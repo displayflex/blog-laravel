@@ -19,6 +19,7 @@ class PostsTableSeeder extends Seeder
 				'title' => $faker->realText(50),
 				'content' => $faker->realText(1024),
 				'user_id' => mt_rand(1, 10),
+				'section_id' => mt_rand(1, 10),
 				'image' => $faker->imageUrl(180,167),
 				'views_count' => mt_rand(0,100)
 			]);

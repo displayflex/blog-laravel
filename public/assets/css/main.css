@@ -2627,6 +2627,7 @@ ol.default li {
 .post-form .form-item input[type="text"],
 .post-form .form-item input[type="email"],
 .post-form .form-item input[type="password"],
+.post-form .form-item select,
 .post-form .form-item textarea,
 .feedback-form .form-item input[type="text"],
 .feedback-form .form-item input[type="email"],
@@ -2805,6 +2806,87 @@ input[type=date]::-webkit-inner-spin-button {
 
 .alert-danger--ajax {
 	display: none;
+}
+
+/* section-list */
+.sections {
+	padding-bottom: 55px;
+	margin-bottom: 35px;
+	border-bottom: 1px solid #e6e6e6;
+}
+
+.sections__main-title {
+	font-size: 1.5em;
+	margin-bottom: 30px;
+}
+
+.sections__list {
+	padding-left: 20px;
+	padding-right: 20px;
+	list-style: none;
+	background-color: #f3f4f4;
+	border: 1px solid #dfe2e4;
+	border-radius: 5px;
+}
+
+.sections-all__list {
+	padding-left: 0;
+	padding-right: 0;
+	list-style: none;
+	background-color: transparent;
+	border: none;
+}
+
+.sections__link {
+	-webkit-transition: all .1s linear;
+	transition: all .1s linear;
+	padding: 12px 15px;
+	width: 100%;
+	display: inline-block;
+	border-bottom: 1px solid #dfe2e4;
+	text-decoration: none;
+	color: #8fb8f3;
+	font-weight: bold;
+	position: relative;
+}
+
+.sections__link::after {
+	-webkit-transition: all .1s linear;
+	transition: all .1s linear;
+	position: absolute;
+	content: "\f054";
+	font-family: 'FontAwesome';
+	font-weight: 400;
+	color: #c6c7c2;
+	right: 20px;
+}
+
+.sections__link:hover,
+.sections__link:focus {
+	color: #468ef1;
+}
+
+.sections__link:hover::after,
+.sections__link:focus::after {
+	color: #468ef1;
+}
+
+.sections__count {
+	color: #9a9a90;
+}
+
+.sections__more {
+	text-align: right;
+}
+
+.sections__more-link {
+	text-decoration: none;
+	transition: 0.3s ease;
+}
+
+.sections__more-link:hover,
+.sections__more-link:focus {
+	color: #468ef1;
 }
 
 /* popular-post */

@@ -1,5 +1,7 @@
 @if (Route::currentRouteName() === "site.tag.tag")
 	<h2 class="icon fa-file-text-o">Посты на тему: {{ $tagName }}</h2>
+@elseif (Route::currentRouteName() === "site.section.section")
+	<h2 class="icon fa-file-text-o">Посты из раздела: {{ $sectionName }}</h2>
 @else
 	<h2 class="icon fa-file-text-o">Недавние посты</h2>
 @endif
@@ -71,5 +73,5 @@
 
 	@can('create', App\Models\Post::class)
 		<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
-	@endcan 
+	@endcan
 </div>

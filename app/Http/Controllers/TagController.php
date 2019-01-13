@@ -10,7 +10,7 @@ class TagController extends Controller
 	public function tag($slug)
 	{
 		$tag = Tag::where('slug', $slug)->firstOrFail();
-		$posts = $tag->posts->sortByDesc('updated_at');
+		$posts = $tag->posts()->orderBy('updated_at', 'desc')->paginate(5);
 
 		return view('layouts.primary', [
 			'page' => 'pages.index',
@@ -30,7 +30,7 @@ class TagController extends Controller
 		return view('layouts.primary', [
 			'page' => 'pages.tags',
 			'title' => 'Laravel-blog | Тэги',
-			'alltags' => $tags
+			'allTags' => $tags
 		]);
 	}
 }

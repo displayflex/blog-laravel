@@ -66,6 +66,13 @@ Route::group(['prefix' => 'tag'], function () {
 		->name('site.tag.tag');
 });
 
+Route::group(['prefix' => 'section'], function () {
+	Route::get('/all', 'SectionController@all')
+		->name('site.section.all');
+	Route::get('/{slug}', 'SectionController@section')
+		->name('site.section.section');
+});
+
 // Route::get('/feedback', 'MainController@feedback')
 // 	->name('site.main.feedback')
 // 	->middleware('can:view,App\Models\Feedback');

@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests\PostRequest;
 use App\Models\Post;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
-use App\Models\Tag;
 use App\Repositories\TagHandleRepository;
 use Illuminate\Support\Facades\Cache;
+use App\Models\Section;
 
 class PostController extends Controller
 {
@@ -28,9 +27,12 @@ class PostController extends Controller
 
 	public function add()
 	{
+		$sections = Section::all();
+
 		return view('layouts.secondary', [
 			'page' => 'pages.post-add',
-			'title' => 'Laravel-blog | Добавить пост'
+			'title' => 'Laravel-blog | Добавить пост',
+			'sections' => $sections
 		]);
 	}
 
@@ -42,9 +44,12 @@ class PostController extends Controller
 		$tags = explode(',', $request->input('tags'));
 		$tagsIds = $tagHandleRepository->handle($tags);
 
+		$sectionId = Section::where('name', $request->input('section'))->firstOrFail()->id;
+
 		$post = $user->posts()->create([
 			'title' => $request->input('title'),
-			'content' => $request->input('content')
+			'content' => $request->input('content'),
+			'section_id' => $sectionId
 		]);
 
 		/**
@@ -54,13 +59,15 @@ class PostController extends Controller
 
 		Cache::forget('mainPosts');
 		Cache::forget('tags');
+		Cache::forget('sectionList');
 
 		return redirect()->route('site.post.post', $post->slug);
 	}
 
 	public function edit($slug)
 	{
-		$post = Post::where('slug', $slug)->firstOrFail();
+		$post = Post::with('section')->where('slug', $slug)->firstOrFail();
+		$sections = Section::all();
 
 		if ($post->user->id !== Auth::user()->id) {
 			return redirect()->back();
@@ -69,7 +76,8 @@ class PostController extends Controller
 		return view('layouts.secondary', [
 			'page' => 'pages.post-edit',
 			'title' => 'Laravel-blog | Редактировать пост',
-			'post' => $post
+			'post' => $post,
+			'sections' => $sections
 		]);
 	}
 
@@ -81,14 +89,18 @@ class PostController extends Controller
 			return redirect()->back();
 		}
 
+		$sectionId = Section::where('name', $request->input('section'))->firstOrFail()->id;
+
 		$post->title = $request->input('title');
 		$post->content = $request->input('content');
 		$post->slug = null;
+		$post->section_id = $sectionId;
 		$post->save();
 
 		Cache::forget('mainPosts');
 		Cache::forget('popularPost');
 		Cache::forget('tags');
+		Cache::forget('sectionList');
 
 		return redirect()->route('site.post.post', $post->slug);
 	}
@@ -106,6 +118,7 @@ class PostController extends Controller
 		Cache::forget('mainPosts');
 		Cache::forget('popularPost');
 		Cache::forget('tags');
+		Cache::forget('sectionList');
 
 		return redirect()->route('site.main.index');
 	}

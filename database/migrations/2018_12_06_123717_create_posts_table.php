@@ -23,6 +23,11 @@ class CreatePostsTable extends Migration
 				->onDelete('cascade')
 				->onUpdate('cascade');
 
+			$table->integer('section_id')->unsigned();
+			$table->foreign('section_id')
+				->references('id')
+				->on('sections');
+
 			$table->string('title', 64);
 			$table->string('slug', 64);
 			$table->string('image', 255)->nullable();

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Cache;
 use App\Models\Post;
 use App\Models\Tag;
+use App\Models\Section;
 
 class Controller extends BaseController
 {
@@ -22,6 +23,17 @@ class Controller extends BaseController
 
 	public function renderSharedViews()
 	{
+		View::share('sectionList', Cache::remember('sectionList', env('CACHE_TIME', 0), function () {
+			return view('parts.widgets.shared.shared-section-list', [
+				// 'sections' => Section::all()
+				'sections' => Section::withCount('posts')
+					->has('posts')
+					->orderBy('posts_count', 'DESC')
+					->take(5)
+					->get()
+			])->render();
+		}));
+
 		View::share('popularPost', Cache::remember('popularPost', env('CACHE_TIME', 0), function () {
 			return view('parts.widgets.shared.shared-popular-post', [
 				'post' => Post::orderBy('views_count', 'DESC')->first()

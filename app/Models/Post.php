@@ -34,4 +34,9 @@ class Post extends Model
 	{
 		return $this->belongsToMany('App\Models\Tag');
 	}
+
+	public function section()
+	{
+		return $this->belongsTo('App\Models\Section');
+	}
 }

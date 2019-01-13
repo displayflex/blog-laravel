@@ -26,6 +26,7 @@ class PostRequest extends FormRequest
 		return [
 			'title' => 'required|max:255|min:5',
 			'content' => 'required|min:5',
+			'section' => 'required', // FIXME: ??
 			'tags' => 'nullable|max:255|min:2' // TODO: validation
 		];
 	}
