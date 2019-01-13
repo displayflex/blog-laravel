@@ -1,5 +1,7 @@
-<form method="POST" class="form post-form" action="{{ route('site.post.editPost', $post->slug) }}">
-	{{ csrf_field() }}
+<form method="POST" class="form post-form" action="{{ route('site.post.update', $post->slug) }}">
+	@method('PATCH')
+	@csrf
+
 	<div class="form-item">
 		<label for="post-form__title">Заголовок <span>*</span></label>
 		<input name="title" type="text" placeholder="Введите заголовок поста" id="post-form__title" value="{{ $post->title }}">

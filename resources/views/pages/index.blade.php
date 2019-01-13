@@ -1,6 +1,6 @@
-@if (Route::currentRouteName() === "site.tag.tag")
+@if (Route::currentRouteName() === "site.tag.show")
 	<h2 class="icon fa-file-text-o">Посты на тему: {{ $tagName }}</h2>
-@elseif (Route::currentRouteName() === "site.section.section")
+@elseif (Route::currentRouteName() === "site.section.show")
 	<h2 class="icon fa-file-text-o">Посты из раздела: {{ $sectionName }}</h2>
 @else
 	<h2 class="icon fa-file-text-o">Недавние посты</h2>
@@ -9,7 +9,7 @@
 @forelse ($posts as $post)
 	<article class="box excerpt post">
 		<div class="post__image-wrapper">
-			<a href="{{ route('site.post.post', $post->slug) }}" class="image left">
+			<a href="{{ route('site.post.show', $post->slug) }}" class="image left">
 				{{-- <img src="/assets/images/pic0{{ mt_rand(4,6) }}.jpg" alt=""> --}}
 				<img src="{{ $post->image }}" alt="">
 			</a>
@@ -21,12 +21,12 @@
 					@foreach ($post->tags as $tag)
 						@if ($tag->name)
 							<li class="tags__item">
-								<a class="tags__link" href="{{ route('site.tag.tag', $tag->slug) }}">{{ $tag->name }}</a>
+								<a class="tags__link" href="{{ route('site.tag.show', $tag->slug) }}">{{ $tag->name }}</a>
 							</li>
 						@endif
 					@endforeach
 				</ul>
-				<h3><a href="{{ route('site.post.post', $post->slug) }}">{{ $post->title }}</a></h3>
+				<h3><a href="{{ route('site.post.show', $post->slug) }}">{{ $post->title }}</a></h3>
 					<div class="post__about-wrapper">
 						<p class="post__author">
 							@can('view', App\Models\Profile::class)
@@ -43,7 +43,7 @@
 			<p class="post__announce">
 				@if (mb_strlen($post->content) >= 200)
 					{{ mb_substr($post->content, 0, 200) }}
-					<a class="post__read-more" href="{{ route('site.post.post', $post->slug) }}"> ...</a>
+					<a class="post__read-more" href="{{ route('site.post.show', $post->slug) }}"> ...</a>
 				@else
 					{{ $post->content }}
 				@endif
@@ -55,9 +55,9 @@
 					</a>
 				@endif
 			@endcan
-			@can('delete', App\Models\Post::class)
+			@can('destroy', App\Models\Post::class)
 				@if ($post->user->id === Auth::user()->id)
-					<a class="post__change post__change--delete" href="{{ route('site.post.delete', $post->slug) }}" onclick="return confirm('Удалить статью?')">
+					<a class="post__change post__change--delete" href="{{ route('site.post.destroy', $post->slug) }}" onclick="return confirm('Удалить статью?')">
 						<i class="fa fa-times"></i>
 					</a>
 				@endif
@@ -72,6 +72,6 @@
 	{{ $posts->links() }}
 
 	@can('create', App\Models\Post::class)
-		<a class="button alt icon fa-file-o" href="/post/add">Добавить</a>
+		<a class="button alt icon fa-file-o" href="{{ route('site.post.create') }}">Добавить</a>
 	@endcan
 </div>

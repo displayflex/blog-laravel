@@ -4,7 +4,7 @@
 		@foreach ($post->tags as $tag)
 			@if ($tag->name)
 				<li class="tags__item">
-					<a class="tags__link" href="{{ route('site.tag.tag', $tag->slug) }}">{{ $tag->name }}</a>
+					<a class="tags__link" href="{{ route('site.tag.show', $tag->slug) }}">{{ $tag->name }}</a>
 				</li>
 			@endif
 		@endforeach
@@ -32,9 +32,9 @@
 			</a>
 		@endif
 	@endcan
-	@can('delete', App\Models\Post::class)
+	@can('destroy', App\Models\Post::class)
 		@if ($post->user->id === Auth::user()->id)
-			<a class="single-post__change single-post__change--delete" href="{{ route('site.post.delete', $post->slug) }}" onclick="return confirm('Удалить статью?')">
+			<a class="single-post__change single-post__change--delete" href="{{ route('site.post.destroy', $post->slug) }}" onclick="return confirm('Удалить статью?')">
 				<i class="fa fa-times"></i>
 			</a>
 		@endif

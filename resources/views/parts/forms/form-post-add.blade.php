@@ -1,4 +1,4 @@
-<form method="POST" class="form post-form" action="{{ route('site.post.addPost') }}">
+<form method="POST" class="form post-form" action="{{ route('site.post.store') }}">
 	{{ csrf_field() }}
 	<div class="form-item">
 		<label for="post-form__title">Заголовок <span>*</span></label>

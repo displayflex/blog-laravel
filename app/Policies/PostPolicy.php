@@ -29,7 +29,7 @@ class PostPolicy
 		return $user->roles->where('id', 2)->first() !== null;
 	}
 
-	public function delete(User $user)
+	public function destroy(User $user)
 	{
 		return $user->roles->where('id', 2)->first() !== null;
 	}

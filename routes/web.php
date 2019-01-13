@@ -15,23 +15,23 @@ Route::get('/', 'MainController@index')
 	->name('site.main.index');
 
 Route::group(['prefix' => 'post'], function () {
-	Route::get('/add', 'PostController@add')
-		->name('site.post.add')
+	Route::get('/add', 'PostController@create')
+		->name('site.post.create')
 		->middleware('can:create,App\Models\Post');
-	Route::post('/add', 'PostController@addPost')
-		->name('site.post.addPost')
+	Route::post('/add', 'PostController@store')
+		->name('site.post.store')
 		->middleware('can:create,App\Models\Post');
 	Route::get('/edit/{slug}', 'PostController@edit')
 		->name('site.post.edit')
 		->middleware('can:update,App\Models\Post');
-	Route::post('/edit/{slug}', 'PostController@editPost')
-		->name('site.post.editPost')
+	Route::patch('/edit/{slug}', 'PostController@update')
+		->name('site.post.update')
 		->middleware('can:update,App\Models\Post');
-	Route::get('/delete/{slug}', 'PostController@delete')
-		->name('site.post.delete')
-		->middleware('can:delete,App\Models\Post');
-	Route::get('/{slug}', 'PostController@post')
-		->name('site.post.post');
+	Route::get('/delete/{slug}', 'PostController@destroy')
+		->name('site.post.destroy')
+		->middleware('can:destroy,App\Models\Post');
+	Route::get('/{slug}', 'PostController@show')
+		->name('site.post.show');
 });
 
 Route::group(['prefix' => 'user'], function () {
@@ -53,24 +53,24 @@ Route::group(['prefix' => 'user'], function () {
 		->where('id', '[0-9]+')
 		->name('site.user.edit')
 		->middleware('can:update,App\Models\Profile');
-	Route::post('/{id}/edit', 'UserController@editPost')
+	Route::post('/{id}/edit', 'UserController@update')
 		->where('id', '[0-9]+')
-		->name('site.user.editPost')
+		->name('site.user.update')
 		->middleware('can:update,App\Models\Profile');
 });
 
 Route::group(['prefix' => 'tag'], function () {
-	Route::get('/all', 'TagController@all')
-		->name('site.tag.all');
-	Route::get('/{slug}', 'TagController@tag')
-		->name('site.tag.tag');
+	Route::get('/all', 'TagController@index')
+		->name('site.tag.index');
+	Route::get('/{slug}', 'TagController@show')
+		->name('site.tag.show');
 });
 
 Route::group(['prefix' => 'section'], function () {
-	Route::get('/all', 'SectionController@all')
-		->name('site.section.all');
+	Route::get('/all', 'SectionController@index')
+		->name('site.section.index');
 	Route::get('/{slug}', 'SectionController@section')
-		->name('site.section.section');
+		->name('site.section.show');
 });
 
 // Route::get('/feedback', 'MainController@feedback')

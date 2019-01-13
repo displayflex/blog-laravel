@@ -7,20 +7,7 @@ use App\Models\Section;
 
 class SectionController extends Controller
 {
-	public function section($slug)
-	{
-		$section = Section::where('slug', $slug)->firstOrFail();
-		$posts = $section->posts()->orderBy('updated_at', 'desc')->paginate(5);
-
-		return view('layouts.primary', [
-			'page' => 'pages.index',
-			'title' => 'Laravel-blog',
-			'sectionName' => $section->name,
-			'posts' => $posts ?? []
-		]);
-	}
-
-	public function all()
+	public function index()
 	{
 		$sections = Section::withCount('posts')
 			->has('posts')
@@ -31,6 +18,19 @@ class SectionController extends Controller
 			'page' => 'pages.sections',
 			'title' => 'Laravel-blog | Разделы',
 			'allSections' => $sections
+		]);
+	}
+
+	public function show($slug)
+	{
+		$section = Section::where('slug', $slug)->firstOrFail();
+		$posts = $section->posts()->orderBy('updated_at', 'desc')->paginate(5);
+
+		return view('layouts.primary', [
+			'page' => 'pages.index',
+			'title' => 'Laravel-blog',
+			'sectionName' => $section->name,
+			'posts' => $posts ?? []
 		]);
 	}
 }

@@ -12,7 +12,7 @@ use App\Models\Section;
 
 class PostController extends Controller
 {
-	public function post($slug)
+	public function show($slug)
 	{
 		$post = Post::where('slug', $slug)->with(['user', 'tags'])->firstOrFail();
 		$post->views_count += 1;
@@ -25,7 +25,7 @@ class PostController extends Controller
 		]);
 	}
 
-	public function add()
+	public function create()
 	{
 		$sections = Section::all();
 
@@ -36,7 +36,7 @@ class PostController extends Controller
 		]);
 	}
 
-	public function addPost(PostRequest $request, TagHandleRepository $tagHandleRepository)
+	public function store(PostRequest $request, TagHandleRepository $tagHandleRepository)
 	{
 		$id = Auth::user()->id ?? null;
 		$user = User::findOrFail($id);
@@ -61,7 +61,7 @@ class PostController extends Controller
 		Cache::forget('tags');
 		Cache::forget('sectionList');
 
-		return redirect()->route('site.post.post', $post->slug);
+		return redirect()->route('site.post.show', $post->slug);
 	}
 
 	public function edit($slug)
@@ -81,7 +81,7 @@ class PostController extends Controller
 		]);
 	}
 
-	public function editPost(PostRequest $request, $slug)
+	public function update(PostRequest $request, $slug)
 	{
 		$post = Post::where('slug', $slug)->firstOrFail();
 
@@ -102,10 +102,10 @@ class PostController extends Controller
 		Cache::forget('tags');
 		Cache::forget('sectionList');
 
-		return redirect()->route('site.post.post', $post->slug);
+		return redirect()->route('site.post.show', $post->slug);
 	}
 
-	public function delete($slug)
+	public function destroy($slug)
 	{
 		$post = Post::where('slug', $slug)->firstOrFail();
 

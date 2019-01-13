@@ -5,14 +5,14 @@
 	<ul class="sections__list">
 		@foreach ($sections as $section)
 			<li class="sections__item">
-				<a class="sections__link" href="{{ route('site.section.section', $section->slug) }}">
+				<a class="sections__link" href="{{ route('site.section.show', $section->slug) }}">
 					{{ $section->name }} &nbsp;<span class="sections__count">({{ $section->posts_count }})</span>
 				</a>
 			</li>
 		@endforeach
 	</ul>
 	<p class="sections__more">
-		<a class="sections__more-link" href="{{ route('site.section.all') }}">
+		<a class="sections__more-link" href="{{ route('site.section.index') }}">
 			Посмотреть все разделы <span class="icon fa-angle-right"></span>
 		</a>
 	</p>

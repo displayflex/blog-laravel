@@ -105,7 +105,7 @@ class UserController extends Controller
 		]);
 	}
 
-	public function editPost(UserEditRequest $request, $id)
+	public function update(UserEditRequest $request, $id)
 	{
 		$user = User::findOrFail(Auth::user()->id);
 
