@@ -91,11 +91,12 @@ class PostController extends Controller
 
 		$sectionId = Section::where('name', $request->input('section'))->firstOrFail()->id;
 
-		$post->title = $request->input('title');
-		$post->content = $request->input('content');
-		$post->slug = null;
-		$post->section_id = $sectionId;
-		$post->save();
+		$post->update([
+			'title' => $request->input('title'),
+			'content' => $request->input('content'),
+			'slug' => null,
+			'section_id' => $sectionId
+		]);
 
 		Cache::forget('mainPosts');
 		Cache::forget('popularPost');

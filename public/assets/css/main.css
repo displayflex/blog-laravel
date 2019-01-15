@@ -2639,8 +2639,10 @@ ol.default li {
 	color: red;
 }
 
-div.has-error input {
-	border-color: red;
+div.has-error input,
+div.has-error select,
+div.has-error textarea {
+	border-color: rgb(219, 90, 90);
 }
 
 .user-menu__greeting {
