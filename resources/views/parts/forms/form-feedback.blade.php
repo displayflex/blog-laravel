@@ -21,15 +21,7 @@
 	</div>
 </form>
 
-@if ($errors->any())
-<div class="alert alert-danger">
-	<ul>
-		@foreach ($errors->all() as $error)
-		<li class="warning-msg">{{ $error }}</li>
-		@endforeach
-	</ul>
-</div>
-@endif
+@include('parts.errors')
 
 <div class="alert alert-danger--ajax">
 	<ul>
